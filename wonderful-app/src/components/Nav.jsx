@@ -24,7 +24,7 @@ import { useEffect } from 'react';
 import darkIcon from '../assets/forDarkIcon.png'  
 import lightIcon from '../assets/forLightIcon.png'  
 import isAuthenticated from '../../utils/isAuthenticated';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
 import logout from '../../utils/logout';
 
 const NavLink = ({ children }) => (
@@ -44,7 +44,7 @@ const NavLink = ({ children }) => (
 export default function Nav() {
   const navigate = useNavigate()
   const { colorMode, toggleColorMode } = useColorMode();
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  //const { isOpen, onOpen, onClose } = useDisclosure();
   const [picture, setPicture] = useState('')
   const [authenticated, setAutheticated] = useState(false)
   console.log(authenticated)
@@ -67,10 +67,12 @@ export default function Nav() {
       <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
           <Box display='flex' alignItems={"center"}>
-            <Image     w={"30px"} h={"30px"}              
+            
+            <Image  onClick={() => {navigate('/')}}   w={"30px"} h={"30px"}              
                       src={colorMode == "light" ? lightIcon : darkIcon}
                     />
-            <Heading as='h3' size="s">{"Cool Name"}</Heading>
+            <Heading onClick={() => {navigate('/')}}  as='h3' size="s">{"Cool Name"}</Heading>
+            
           </Box>
 
           <Flex alignItems={'center'}>
