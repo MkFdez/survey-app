@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react"
-import { Radio, Image, Button, Input, Stack, RadioGroup } from "@chakra-ui/react";
-import React from "react";
-import ImageUploader from "../ImageUploader";
-export default function StandardQuestion(props){
+import { useDispatch } from "react-redux";
+import { addAnswer, updateQuestionData } from "../../redux/createSurvey";
+import { Radio,  Button, Input, Stack} from "@chakra-ui/react";
 
+export default function StandardQuestion(props){
+    const dispatch = useDispatch()
     function buildELements(o)
     {
         let temp = []
@@ -11,7 +11,7 @@ export default function StandardQuestion(props){
             let comp = <></>
             switch(e.t){
                 case 0:
-                    comp = <Input key={i} value={e.a} onChange={(event) => props.upt(event.target.value,i)} placeholder={`Possible Answer ${i+1}`}/>
+                    comp = <Input key={i} value={e.a} onChange={(event) => {dispatch(updateQuestionData({d:event.target.value, i: props.parentIndex, questionIndex: i}))}} placeholder={`Possible Answer ${i+1}`}/>
                     break;
                 case 1:
                     comp =<Radio key={i} value={i.toString}><Input maxW={'30%'} placeholder="Type whatever you want"/> <Input maxW={'40%'}/></Radio>
@@ -53,7 +53,7 @@ export default function StandardQuestion(props){
                         {elements} 
                     
                 
-                <Button maxW={'30%'} colorScheme="green" onClick={() => props.add({a:"", t:0})}>Add</Button>
+                <Button maxW={'30%'} colorScheme="green" onClick={() => dispatch(addAnswer({d:{a:"", t:0}, i:props.parentIndex}))}>Add</Button>
             </Stack>
         </>
       

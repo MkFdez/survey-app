@@ -10,10 +10,13 @@ import {
     Box,
     Button,
   } from '@chakra-ui/react'
+import { useDispatch } from 'react-redux'
+import { addQuestion } from '../redux/createSurvey'
 import {BiAlignLeft, BiImage} from 'react-icons/bi'
 export default function ComponentsDrawer(props){
+  const dispatch = useDispatch()
   const handleClickOption = (i) => {
-    props.addQ(i)
+    dispatch(addQuestion(i))
     props.onClose()
   }
   return(

@@ -1,18 +1,21 @@
 
 import { useState } from "react"
+import { useDispatch } from "react-redux"
+import { updateQuestion } from "../redux/createSurvey"
 import ImageQuestion from "./PossibleAnswers/ImageQuestion"
 import StandardQuestion from "./PossibleAnswers/StandardQuestion"
 import { AccordionItem, AccordionPanel, AccordionButton, AccordionIcon, Box, Input, HStack, Badge} from "@chakra-ui/react"
 export default function Question(props){
+    const dispatch = useDispatch()
     let body = <></>
     let badge = ''
     switch(props.data.pa[0].t){
         case 0:
-            body = <StandardQuestion data={props.data.pa} add={props.addAns} upt={props.uptData}/>
+            body = <StandardQuestion parentIndex={props.index} data={props.data.pa} add={props.addAns} upt={props.uptData}/>
             badge = 'text selection'
             break;
         case 1:
-            body = <ImageQuestion data={props.data.pa} add={props.addAns} upt={props.uptData} imageFolder={props.imageFolder}/>
+            body = <ImageQuestion parentIndex={props.index} data={props.data.pa} add={props.addAns} upt={props.uptData} imageFolder={props.imageFolder}/>
             badge = 'image selection'
             break;
     }
@@ -24,7 +27,7 @@ export default function Question(props){
                         
                         <Box as="span" flex='1' textAlign='left' maxW={"80%"}>
                        
-                                <Input value={props.data.q} onChange={(event) => {props.upt(event.target.value)}} placeholder={`Question #${props.index+1}`} size='md' />
+                                <Input value={props.data.q} onChange={(event) => {dispatch(updateQuestion({newValue: event.target.value, index: props.index}))}} placeholder={`Question #${props.index+1}`} size='md' />
                         </Box>
                         
                         <AccordionButton position={"relative"} w={"max-content"} float={"right"}>                       
