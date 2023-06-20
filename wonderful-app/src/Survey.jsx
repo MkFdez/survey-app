@@ -1,4 +1,4 @@
-import { RadioGroup, Radio,Stack, Button, Heading, useColorMode, Progress, Box, Grid, GridItem, Image} from "@chakra-ui/react";
+import { Radio, Button, Heading,  Progress, Grid, GridItem, Image} from "@chakra-ui/react";
 import { useToast } from "@chakra-ui/react";
 import LoadingHamster from "./components/LoadingHamster";
 import { useState, useEffect} from "react";
@@ -7,18 +7,21 @@ import SurveyBody from "./components/SurveyBody";
 import {ArrowBackIcon, ArrowForwardIcon} from '@chakra-ui/icons'
 import './survey.css'
 import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux"
+import { start, answer, nextPage as next, prevPage, changeValue as change, reset, setSurvey } from "./redux/survey";
 
 //data => object with 2 parameters (p => question, a => list of possible answers)
-export default function Survey(props){
+export default function Survey(){
     let radios = [];
     var {id} = useParams()
-    const [survey, setSurvey] = useState({})
+    const survey = useSelector(state => state.survey.survey)
     const [loading, setLoading] = useState(true)
-    const [ans, setAns] = useState([])
+    const ans = useSelector(state => state.survey.answers)
+    const dispatch = useDispatch()
     console.log(id)
 
     useEffect(() => {
-
+        dispatch(reset())
         axios.get("http://localhost:5000/api/survey", 
         {
             params:
@@ -27,15 +30,9 @@ export default function Survey(props){
             }
         }).then(({data}) => {
             console.log(data)
-            setSurvey(data)
+            dispatch(setSurvey(data))
             setLoading(false)
-            setAns(() => {
-                let temp = []
-                for(let i = 0; i < data.question.length; i++){
-                    temp.push(0)
-                }
-                return temp
-            })
+            dispatch(start(data.question.length))
         }).catch(err => {console.log(err)})
     }, [])
     function nextPage(){
@@ -49,17 +46,17 @@ export default function Survey(props){
           })
           finishSurvey()
         }
-        setActualPage(x => { return x+1})
+        dispatch(next())
     }
     function previousPage(){
-        setActualPage(x => { return x-1}) 
+        dispatch(prevPage())
     }
     function changeValue(val){
-        setValue(val)
-        setAns(x => x.map((y, i) => i==actualPage ? val : y ))
+        dispatch(change(val))
+        dispatch(answer())
     }
     const toast = useToast()
-    const [actualPage, setActualPage] = useState(0);
+    const actualPage= useSelector(state => state.survey.actualPage)
     if( !loading){
         if(actualPage < survey.question.length){
             radios = survey.question[actualPage].pa.map((x,i) => <Radio key={i} value={i.toString()}>{x.t == 1 ? <Image
@@ -72,10 +69,10 @@ export default function Survey(props){
 }
         
     const finishSurvey =  async () => {
-        axios.post('http://localhost:5000/api/survey/finish', {surveyId : id, response: ans}).then(res => {console.log('done')})
+        axios.post('http://localhost:5000/api/survey/finish', {surveyId : id, response: ans}).then(() => {console.log('done')})
     }
 
-    const [value, setValue] = useState('0')
+    const value = useSelector(state => state.survey.value)
     let percent = 0
     if(!loading){
      percent = Math.round((actualPage/survey.question.length)*100)
