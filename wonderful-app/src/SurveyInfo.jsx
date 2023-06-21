@@ -22,6 +22,7 @@ import axios from 'axios';
 export default function SurveyInfo() {
   const { id } = useParams();
   const [survey, setSurvey] = useState(null);
+  const [questions, setQuestions] = useState([]) 
   const [selectedQuestion, setSelectedQuestion] = useState(null);
   var colors = [
     "#FF4081", // Pink
@@ -56,6 +57,17 @@ export default function SurveyInfo() {
     try {
       const data = await axios.get('http://localhost:5000/api/survey/info', {params:{surveyId:id}})
       setSurvey(data.data);
+      let q = []
+      let temp = data.data.map(x => x.response)
+      console.log('base')
+        console.log(temp)
+      for(let i = 0; i < temp[0].length; i++){
+        q.push(temp.map(x => x[i]))
+      }
+      setQuestions(q)
+      console.log('q')
+      console.log(q)
+      
     } catch (error) {
       console.log('Error fetching survey data:', error);
     }
@@ -70,7 +82,7 @@ export default function SurveyInfo() {
   }
 
   const link = 'http://localhost:5173/survey/'+id
-  const questions = survey.map(x => x.response)
+  console.log(`questions ${questions}`)
   //console.log(questions)
   const participants = survey.map((x,i) => `User ${i}`)
   // Count the number of participants
@@ -87,14 +99,14 @@ export default function SurveyInfo() {
   const getPieChartData = (answers, i) => {
     console.log(`ana ${i}`)
     const counts = new Map();
-    const corrected = answers.map(x => x[i])
+    
     // Count the occurrences of each answer
-    corrected.forEach((answer) => {
+    answers.forEach((answer) => {
       counts.set(answer, (counts.get(answer) || 0) + 1);
     });
 
     // Convert the answer counts to pie chart data format
-    const totalAnswers = corrected.length;
+    const totalAnswers = answers.length;
     const pieData = Array.from(counts, ([answer, count]) => ({
       answer: answer ,
       value: count,
@@ -166,7 +178,7 @@ export default function SurveyInfo() {
         <Flex justify="center">
           <Box p={4} borderWidth={1} borderRadius="md" >
             {
-            questions[0].map((question, i) => (
+            questions.map((question, i) => (
               <Button
                 key={i}
                 variant={selectedQuestion === i ? 'solid' : 'outline'}
@@ -185,8 +197,8 @@ export default function SurveyInfo() {
         <Flex direction="column" align="stretch">
           {questions.map((question, i) => (
             <Collapse key={i} in={selectedQuestion === i}>
-              {renderQuestionChart(questions, i)}
-            </Collapse>
+              {renderQuestionChart(question, i)}
+              </Collapse>
           ))}
         </Flex>
       </Box>

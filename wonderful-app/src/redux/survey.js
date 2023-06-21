@@ -17,7 +17,7 @@ export const surveySlice = createSlice({
     start: (state, {payload}) =>{
         let temp = []
                 for(let i = 0; i < payload; i++){
-                    temp.push(0)
+                    temp.push('0')
                 }
                 state.answers = temp
     },
