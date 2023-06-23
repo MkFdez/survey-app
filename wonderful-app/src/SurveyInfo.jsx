@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import {
   Box,
   Heading,
@@ -16,15 +16,39 @@ import {
   Button,
 } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
-import { PieChart, Pie, Cell, Legend } from 'recharts';
+import { PieChart, Pie, Cell, Legend, ResponsiveContainer } from 'recharts';
 import CopyTextComponent from './components/CopyTextComponent';
 import axios from 'axios';
+import RoundedImage from './components/RoundedImage';
 export default function SurveyInfo() {
   const { id } = useParams();
   const [survey, setSurvey] = useState(null);
   const [questions, setQuestions] = useState([]) 
   const [selectedQuestion, setSelectedQuestion] = useState(null);
+  const chartRef = useRef(null);
+  const [containerHeight, setContainerHeight] = useState('300px');
+
+  useEffect(() => {
+    const updateContainerHeight = () => {
+      if(chartRef.current != null){
+      const height = chartRef.current.clientHeight;
+      console.log(height)
+      setContainerHeight(height);
+      }
+    };
+
+    window.addEventListener('resize', updateContainerHeight);
+    updateContainerHeight();
+
+    return () => {
+      window.removeEventListener('resize', updateContainerHeight);
+    };
+  }, []);
+
+  const chartHeight = containerHeight > 0 ? containerHeight : 300;
   var colors = [
+    "#FF5252", // Red,
+    "#536DFE",  // RoyalBlue
     "#FF4081", // Pink
     "#E040FB", // Purple
     "#673AB7", // DeepPurple
@@ -42,9 +66,8 @@ export default function SurveyInfo() {
     "#795548", // Brown
     "#9E9E9E", // Grey
     "#607D8B", // BlueGrey
-    "#FF5252", // Red
+    
     "#4CAF50", // Green
-    "#536DFE"  // RoyalBlue
   ];
   
   
@@ -58,7 +81,7 @@ export default function SurveyInfo() {
       const data = await axios.get('http://localhost:5000/api/survey/info', {params:{surveyId:id}})
       setSurvey(data.data);
       let q = []
-      let temp = data.data.map(x => x.response)
+      let temp = data.data.responses.map(x => x.response)
       console.log('base')
         console.log(temp)
       for(let i = 0; i < temp[0].length; i++){
@@ -84,7 +107,7 @@ export default function SurveyInfo() {
   const link = 'http://localhost:5173/survey/'+id
   console.log(`questions ${questions}`)
   //console.log(questions)
-  const participants = survey.map((x,i) => `User ${i}`)
+  const participants = survey.responses.map((x,i) => `User ${i}`)
   // Count the number of participants
   const participantsCount = participants.length;
 
@@ -121,12 +144,15 @@ export default function SurveyInfo() {
     console.log(questions)
     return (
       <Box key={i}>
+        <center>
         <Heading as="h2" size="md" mb={2}>
-          {`question ${i}`}
+          {survey.moreData.question[i].q}
         </Heading>
+        </center>
         {question.length > 0 ? (
-          <Box width="100%" mb={4}>
-            <PieChart width={300} height={200}>
+           <Box ref={chartRef} height={'300px'} width={'100%'}>
+            <ResponsiveContainer width="100%" height="100%">
+            <PieChart height={300} width={400} >
               <Pie
                 data={pieData}
                 dataKey="value"
@@ -135,13 +161,19 @@ export default function SurveyInfo() {
                 cy="50%"
                 outerRadius={80}
                 fill="#3182CE"
+                
               >
                 {pieData.map((entry, index) => (
                   <Cell key={`cell-${index}`} style={{outline: 'none'}} fill={colors[index]} />
                 ))}
               </Pie>
-              <Legend verticalAlign="bottom" align="center" />
+              <Legend layout="vertical" verticalAlign="bottom" align="center" formatter={
+                (value, entry, index) => survey.moreData.question[i].pa[index].t == 0 
+                ? <span className="text-color-class">{survey.moreData.question[i].pa[index].a}</span> 
+                : <RoundedImage imageUrl={'http://localhost:5000/'+survey.moreData.question[i].pa[index].a} width={'20%'} height={"20%"}/>}/>
             </PieChart>
+            </ResponsiveContainer>
+   
           </Box>
         ) : (
           <Text>No answers yet for this question.</Text>

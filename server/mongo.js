@@ -70,6 +70,10 @@ static async getUserSurveys(id){
   return data
 
 }
+static async getSurveyLite(id){
+  const data = await Survey.findById(id).select('-owner -responses')
+  return data
+}
 }
 
 

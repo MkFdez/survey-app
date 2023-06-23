@@ -28,7 +28,9 @@ surveyRouter.post('/finish', (req,res)=>{
 surveyRouter.get('/info', async (req, res)=>{
     let surveyId = req.query.surveyId
     let data = await DataAccess.getResponses(surveyId)
-    res.json(data)
+    let moreData = await DataAccess.getSurveyLite(surveyId)
+    
+    res.json({responses: data, moreData})
 })
 
 module.exports = surveyRouter
