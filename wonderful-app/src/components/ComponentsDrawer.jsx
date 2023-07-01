@@ -12,7 +12,7 @@ import {
   } from '@chakra-ui/react'
 import { useDispatch } from 'react-redux'
 import { addQuestion } from '../redux/createSurvey'
-import {BiAlignLeft, BiImage} from 'react-icons/bi'
+import {BiAlignLeft, BiImage, BiDotsHorizontalRounded} from 'react-icons/bi'
 export default function ComponentsDrawer(props){
   const dispatch = useDispatch()
   const handleClickOption = (i) => {
@@ -48,6 +48,10 @@ export default function ComponentsDrawer(props){
 
               <Button leftIcon={<BiImage />} colorScheme={'red'} variant={'solid'}  onClick={() => handleClickOption({q : "", pa : [{a:"", t:1}, {a:"", t:1}], m:true, t:1})} >
                    Multiple Image Selection
+              </Button>
+
+              <Button leftIcon={<BiDotsHorizontalRounded />} colorScheme={'red'} variant={'solid'}  onClick={() => handleClickOption({q : "", pa : [{a:"0", t:2}, {a:"10", t:2}], m:false, t:2})} >
+                   Bar Selection
               </Button>
             </Stack>
           </DrawerBody>

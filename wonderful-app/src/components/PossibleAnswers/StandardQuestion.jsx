@@ -1,6 +1,8 @@
 import { useDispatch } from "react-redux";
 import { addAnswer, updateQuestionData } from "../../redux/createSurvey";
-import { Radio,  Button, Input, Stack} from "@chakra-ui/react";
+import { Radio,  Button, Input, Stack, Flex, IconButton} from "@chakra-ui/react";
+import { BiTrash } from "react-icons/bi";
+import { removeAnswer } from "../../redux/createSurvey";
 
 export default function StandardQuestion(props){
     const dispatch = useDispatch()
@@ -11,7 +13,19 @@ export default function StandardQuestion(props){
             let comp = <></>
             switch(e.t){
                 case 0:
-                    comp = <Input key={i} value={e.a} onChange={(event) => {dispatch(updateQuestionData({d:event.target.value, i: props.parentIndex, questionIndex: i}))}} placeholder={`Possible Answer ${i+1}`}/>
+                    comp = <Flex key={i} alignItems={'center'}>
+                        <Input  value={e.a} onChange={(event) => {dispatch(updateQuestionData({d:event.target.value, i: props.parentIndex, questionIndex: i}))}} placeholder={`Possible Answer ${i+1}`}/>
+                        <IconButton
+                        ml={'5px'}
+                         h={'min-content'}
+                         w={'min-content'}
+                        icon={<BiTrash />}
+                        aria-label="Arrow Up"
+                        fontSize={'20px'}
+                        variant="unstyled"
+                        onClick={() => {dispatch(removeAnswer({qIndex:props.parentIndex, aIndex: i}))}}
+                        />
+                    </Flex>
                     break;
                 case 1:
                     comp =<Radio key={i} value={i.toString}><Input maxW={'30%'} placeholder="Type whatever you want"/> <Input maxW={'40%'}/></Radio>

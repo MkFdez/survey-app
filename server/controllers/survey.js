@@ -22,7 +22,8 @@ surveyRouter.get('/', async (req,res)=>{
 surveyRouter.post('/finish', (req,res)=>{
     let surveyId = req.body.surveyId
     let response = req.body.response
-    DataAccess.addResponse(response,surveyId)
+    let ip = req.body.ip
+    DataAccess.addResponse(response,surveyId, ip)
 })
 
 surveyRouter.get('/info', async (req, res)=>{
@@ -32,5 +33,13 @@ surveyRouter.get('/info', async (req, res)=>{
     
     res.json({responses: data, moreData})
 })
+surveyRouter.get('/checkIp', async(req, res) => {
+    let surveyId = req.query.id
+    let ip = req.query.ip
+    let result = await DataAccess.checkIp(surveyId, ip)
+
+    res.json({exist : result})
+})
+
 
 module.exports = surveyRouter

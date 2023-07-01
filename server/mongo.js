@@ -42,7 +42,7 @@ class DataAccess{
     return data
 }
 
-  static async addResponse(response, surveyId){
+  static async addResponse(response, surveyId, ip){
     const res = new SurveyRespond({
       surveyId: surveyId,
       response : response
@@ -53,6 +53,11 @@ class DataAccess{
     survey.responses = [...survey.responses, res.id]
     }else{
       survey.responses = [res.id]
+    }
+    if(survey.usedIps){
+      survey.usedIps = [...survey.usedIps, ip]
+    }else{
+      survey.usedIps = [ip]
     }
     await survey.save()
   } 
@@ -73,6 +78,11 @@ static async getUserSurveys(id){
 static async getSurveyLite(id){
   const data = await Survey.findById(id).select('-owner -responses')
   return data
+}
+static async checkIp(id, ip){
+  const survey = await Survey.findById(id).select('usedIps')
+  const result = survey.usedIps.some(x => x == ip)
+  return result
 }
 }
 

@@ -14,5 +14,5 @@ export default defineConfig({
     proxy:{
       'api/survey' : 'http://localhost:5000'
     }
-  },
+  },  
 });
