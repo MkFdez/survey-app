@@ -9,7 +9,7 @@ import {
     VisuallyHidden,
   } from '@chakra-ui/react';
   import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa';
-  import { ReactNode } from 'react';
+  import { ReactNode, useImperativeHandle } from 'react';
   import React, { useRef, useEffect, useState } from 'react';
   const Logo = (props) => {
     return (
@@ -57,21 +57,32 @@ import {
     );
   };
   
-  export default function Footer() {
+  export default function Footer({reverse = false}) {
     const footerRef = useRef(null);
   const [isContentLong, setIsContentLong] = useState(false);
-
+  
   useEffect(() => {
-    const handleResize = () => {
-      const isLong = document.body.offsetHeight > window.innerHeight;
+    const handleResize = (reverse = false) => {
+      let isLong = document.body.offsetHeight >= window.innerHeight;
+      if(reverse) isLong = !isLong
       setIsContentLong(isLong);
     };
 
     handleResize(); // Check initial state
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener('resize',(e) => { 
+      if(e.isTrusted){
+        handleResize()
+      }else{
+      handleResize(reverse)
+  }
+});
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('resize',(e) => {
+        if(e.isTrusted){
+          handleResize()
+        }else{
+        handleResize(reverse)}});
     };
   }, []);
     return (

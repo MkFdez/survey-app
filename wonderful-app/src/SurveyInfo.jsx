@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import {
   Box,
   Heading,
@@ -15,15 +15,59 @@ import {
   Collapse,
   Button,
 } from '@chakra-ui/react';
+import Footer from "./components/Footer";
+import Nav from "./components/Nav";
 import { useParams } from 'react-router-dom';
-import { PieChart, Pie, Cell, Legend } from 'recharts';
+import { PieChart, Pie, Cell, Legend, ResponsiveContainer } from 'recharts';
 import CopyTextComponent from './components/CopyTextComponent';
 import axios from 'axios';
+import RoundedImage from './components/RoundedImage';
 export default function SurveyInfo() {
   const { id } = useParams();
   const [survey, setSurvey] = useState(null);
+  const [questions, setQuestions] = useState([]) 
   const [selectedQuestion, setSelectedQuestion] = useState(null);
+  const chartRef = useRef(null);
+  const [containerHeight, setContainerHeight] = useState('300px');
+  const forceResize = () => {
+    
+   
+    // Create a new resize event
+    var resizeEvent = new Event('resize');
+    
+    // Dispatch the event on the element
+    window.dispatchEvent(resizeEvent);
+    
+      }
+      const handleQuestionToggle = (questionId) => {
+        
+        if (selectedQuestion === questionId) {
+          setSelectedQuestion(null);
+        } else {
+          setSelectedQuestion(questionId);
+        }
+         //setTimeout(() => {forceResize()}, 200)
+      };
+  useEffect(() => {
+    forceResize()
+    const updateContainerHeight = () => {
+      if(chartRef.current != null){
+      const height = chartRef.current.clientHeight;
+      setContainerHeight(height);
+      }
+    };
+
+    window.addEventListener('resize', updateContainerHeight);
+    updateContainerHeight();
+
+    return () => {
+      window.removeEventListener('resize', updateContainerHeight);
+    };
+  }, []);
+  const chartHeight = containerHeight > 0 ? containerHeight : 300;
   var colors = [
+    "#FF5252", // Red,
+    "#536DFE",  // RoyalBlue
     "#FF4081", // Pink
     "#E040FB", // Purple
     "#673AB7", // DeepPurple
@@ -41,9 +85,8 @@ export default function SurveyInfo() {
     "#795548", // Brown
     "#9E9E9E", // Grey
     "#607D8B", // BlueGrey
-    "#FF5252", // Red
+    
     "#4CAF50", // Green
-    "#536DFE"  // RoyalBlue
   ];
   
   
@@ -56,6 +99,24 @@ export default function SurveyInfo() {
     try {
       const data = await axios.get('http://localhost:5000/api/survey/info', {params:{surveyId:id}})
       setSurvey(data.data);
+      let q = []
+      let temp = data.data.responses.map(x => x.response)
+      for(let i = 0; i < temp[0].length; i++){
+        if(typeof(temp[0][i]) == typeof([])){
+          let b = []
+          for(let a of temp){
+            b = b.concat(a[i])
+            console.log(b)
+          
+          }
+          q.push(b)
+        }else{
+        q.push(temp.map(x => x[i]))
+        }
+      }
+      setQuestions(q)
+      
+      
     } catch (error) {
       console.log('Error fetching survey data:', error);
     }
@@ -70,51 +131,43 @@ export default function SurveyInfo() {
   }
 
   const link = 'http://localhost:5173/survey/'+id
-  const questions = survey.map(x => x.response)
   //console.log(questions)
-  const participants = survey.map((x,i) => `User ${i}`)
+  const participants = survey.responses.map((x,i) => `User ${i}`)
   // Count the number of participants
   const participantsCount = participants.length;
-
-  const handleQuestionToggle = (questionId) => {
-    if (selectedQuestion === questionId) {
-      setSelectedQuestion(null);
-    } else {
-      setSelectedQuestion(questionId);
-    }
-  };
+ 
 
   const getPieChartData = (answers, i) => {
-    console.log(`ana ${i}`)
     const counts = new Map();
-    const corrected = answers.map(x => x[i])
     // Count the occurrences of each answer
-    corrected.forEach((answer) => {
+    answers.forEach((answer) => {
       counts.set(answer, (counts.get(answer) || 0) + 1);
     });
-
+    console.log(answers)
     // Convert the answer counts to pie chart data format
-    const totalAnswers = corrected.length;
+    const totalAnswers = answers.length;
     const pieData = Array.from(counts, ([answer, count]) => ({
       answer: answer ,
       value: count,
       percent: ((count / totalAnswers) * 100).toFixed(0),
     }));
-    console.log(pieData)
+    
     return pieData;
   };
 
   const renderQuestionChart = (question, i) => {
     const pieData = getPieChartData(question, i);
-    console.log(questions)
     return (
       <Box key={i}>
+        <center>
         <Heading as="h2" size="md" mb={2}>
-          {`question ${i}`}
+          {survey.moreData.question[i].q}
         </Heading>
+        </center>
         {question.length > 0 ? (
-          <Box width="100%" mb={4}>
-            <PieChart width={300} height={200}>
+           <Box ref={chartRef} height={'300px'} width={'100%'}>
+            <ResponsiveContainer width="100%" height="100%">
+            <PieChart height={300} width={400} >
               <Pie
                 data={pieData}
                 dataKey="value"
@@ -123,13 +176,22 @@ export default function SurveyInfo() {
                 cy="50%"
                 outerRadius={80}
                 fill="#3182CE"
+                
               >
                 {pieData.map((entry, index) => (
                   <Cell key={`cell-${index}`} style={{outline: 'none'}} fill={colors[index]} />
                 ))}
               </Pie>
-              <Legend verticalAlign="bottom" align="center" />
+              <Legend layout="vertical" verticalAlign="bottom" align="center" formatter={
+                (value, entry, index) =>  
+                  survey.moreData.question[i].pa[0].t != 1 
+                ? <span className="text-color-class">{survey.moreData.question[i].pa[0].t == 0?  survey.moreData.question[i].pa[index].a : value}</span> 
+                : <RoundedImage imageUrl={'http://localhost:5000/'+survey.moreData.question[i].pa[index].a} width={'20%'} height={"20%"}/>
+                }/>
+              
             </PieChart>
+            </ResponsiveContainer>
+   
           </Box>
         ) : (
           <Text>No answers yet for this question.</Text>
@@ -139,6 +201,8 @@ export default function SurveyInfo() {
   };
 
   return (
+    <>
+    <Nav />
     <Box p={8}>
       <Heading as="h1" mb={6} fontSize="2xl">
         Survey Details
@@ -166,13 +230,17 @@ export default function SurveyInfo() {
         <Flex justify="center">
           <Box p={4} borderWidth={1} borderRadius="md" >
             {
-            questions[0].map((question, i) => (
+            questions.map((question, i) => (
               <Button
                 key={i}
                 variant={selectedQuestion === i ? 'solid' : 'outline'}
                 colorScheme="teal"
                 size="sm"
-                onClick={() => handleQuestionToggle(i)}
+                onClick={() => {
+                  handleQuestionToggle(i)
+                  if(selectedQuestion == i || selectedQuestion == null) 
+                      {forceResize()}
+                }}
                 mr={2}
               >
                 {`question ${i}`}
@@ -184,9 +252,9 @@ export default function SurveyInfo() {
       <Box width="100%" overflowX="auto">
         <Flex direction="column" align="stretch">
           {questions.map((question, i) => (
-            <Collapse key={i} in={selectedQuestion === i}>
-              {renderQuestionChart(questions, i)}
-            </Collapse>
+            <Collapse key={i} in={selectedQuestion === i} >
+              {renderQuestionChart(question, i)}
+              </Collapse>
           ))}
         </Flex>
       </Box>
@@ -195,5 +263,7 @@ export default function SurveyInfo() {
       <center><Text>nobody has answered this survey</Text></center>
           }
     </Box>
+    <Footer reverse={true} />
+    </>
   );
 }

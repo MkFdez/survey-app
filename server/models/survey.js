@@ -9,6 +9,7 @@ const surveySchema = new mongoose.Schema({
         ref: 'User'
     },
     responses:Array,
+    usedIps: Array,
     date: Date,
     public: Boolean,
     
