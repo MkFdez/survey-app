@@ -7,6 +7,7 @@ export const surveySlice = createSlice({
     answers:[],
     actualPage: 0,
     value: '0',
+    multiValue: [],
     survey: {}
   }
   ,
@@ -23,6 +24,19 @@ export const surveySlice = createSlice({
     },
     answer: (state) => {
         state.answers = state.answers.map((y, i) => i== state.actualPage ? state.value : y )
+    },
+    answerMulti: (state, {payload}) => {
+      if(state.multiValue.includes(payload)){
+        state.multiValue = state.multiValue.filter(x => x != payload)
+      }else{
+        state.multiValue.push(payload)
+      }
+      state.answers = state.answers.map((y, i) => i== state.actualPage ? state.multiValue : y )
+    }
+    ,
+    resetMulti: (state) => {
+      state.multiValue = []
+    
     },
     nextPage: (state) => {
         state.actualPage += 1
@@ -43,6 +57,6 @@ export const surveySlice = createSlice({
 
   }})
 
-export const { start, answer, nextPage, prevPage, changeValue,setSurvey, reset } = surveySlice.actions
+export const { start, answer, nextPage, prevPage, changeValue,setSurvey, reset, answerMulti, resetMulti } = surveySlice.actions
 
 export default surveySlice.reducer

@@ -13,8 +13,40 @@ import {
     useColorModeValue,
   } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
+import ReactPlayer from 'react-player';
+import testVideo from '../assets/testVideo.mp4'
+import { useState, useRef, useEffect } from 'react';
+import CustomControls from './CustomControls';
+import { set } from 'lodash';
   
   export default function Hero() {
+    const [playing, setPlaying] = useState(false)
+    const componentRef = useRef(null);
+    const [isFullscreen, setFullscreen] = useState(false)
+    const [duration, setDuration] = useState(0)
+    const [progress, setProgress] = useState(0)
+    const [volume, setVolume] = useState(1)
+    useEffect(() => {
+      const p = document.getElementById('react-player');
+      const handleChangeFullscreen = () => { setFullscreen(x => !x)}
+    
+      p.addEventListener('fullscreenchange', handleChangeFullscreen )
+      return () => { p.removeEventListener('fullscreenchange', handleChangeFullscreen)
+  }}, [])
+  const handleFullscreen = () => {
+    
+    const p = document.getElementById('react-player');
+    if(!isFullscreen){
+    p.requestFullscreen()
+    }else{
+      document.exitFullscreen()
+    }
+  };
+  const playerRef = useRef(null);
+  const updateProgress = (progress) => {
+    setProgress(progress);
+    playerRef.current.seekTo(progress, 'seconds');
+  };
     return (
       <Container maxW={'7xl'}>
         <Stack
@@ -72,6 +104,13 @@ import { Link } from 'react-router-dom';
                 </Button>
               </Link>
               <Button
+              ref={componentRef}
+              onClick={() => {
+                
+                setPlaying(x => !x)
+                handleFullscreen()
+              }
+                }
                 rounded={'full'}
                 size={'lg'}
                 fontWeight={'normal'}
@@ -97,34 +136,44 @@ import { Link } from 'react-router-dom';
               color={useColorModeValue('red.50', 'red.400')}
             />
             <Box
+            id="react-player"
               position={'relative'}
+              bg={'black'}
               height={'300px'}
               rounded={'2xl'}
-              boxShadow={'2xl'}
-              width={'full'}
+              width={'max-content'}
               overflow={'hidden'}>
-              <IconButton
-                aria-label={'Play Button'}
-                variant={'ghost'}
-                _hover={{ bg: 'transparent' }}
-                icon={<PlayIcon w={12} h={12} />}
-                size={'lg'}
-                color={'white'}
-                position={'absolute'}
-                left={'50%'}
-                top={'50%'}
-                transform={'translateX(-50%) translateY(-50%)'}
-              />
-              <Image
-                alt={'Hero Image'}
-                fit={'cover'}
-                align={'center'}
-                w={'100%'}
-                h={'100%'}
-                src={
-                  'https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=800&q=80'
-                }
-              />
+
+               <ReactPlayer
+               
+               ref={playerRef}
+               onDuration={(val) => {setDuration(val)}}
+               onProgress={({playedSeconds}) => {
+                setProgress(playedSeconds)}}
+               rounded={'2x1'}
+               progressInterval={10}
+              // light={<img onClick={() => {setPlaying(true)}} src='https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=800&q=80' alt='Thumbnail' />}
+                  url={testVideo} // Replace with your video URL
+                  width="100%"
+                  height="100%"
+                  playing={playing}  
+                  volume={volume}       
+                  
+                />
+                  <CustomControls 
+                  isFullscreen={isFullscreen}
+                  isPlaying={playing}
+                  duration={duration}
+                  actual={progress}
+                  volume={volume}
+                  onPlay={() => {setPlaying(x => !x)}}
+                  setCurrentTime = {(val) => {updateProgress(val)}}
+                  onFullscreen={() => {
+                    handleFullscreen()
+                  }}
+                  onVolumeChange={(val) => { setVolume(val)}}
+                  
+                  />
             </Box>
           </Flex>
         </Stack>

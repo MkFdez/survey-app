@@ -102,7 +102,17 @@ export default function SurveyInfo() {
       let q = []
       let temp = data.data.responses.map(x => x.response)
       for(let i = 0; i < temp[0].length; i++){
+        if(typeof(temp[0][i]) == typeof([])){
+          let b = []
+          for(let a of temp){
+            b = b.concat(a[i])
+            console.log(b)
+          
+          }
+          q.push(b)
+        }else{
         q.push(temp.map(x => x[i]))
+        }
       }
       setQuestions(q)
       
@@ -129,12 +139,11 @@ export default function SurveyInfo() {
 
   const getPieChartData = (answers, i) => {
     const counts = new Map();
-    
     // Count the occurrences of each answer
     answers.forEach((answer) => {
       counts.set(answer, (counts.get(answer) || 0) + 1);
     });
-
+    console.log(answers)
     // Convert the answer counts to pie chart data format
     const totalAnswers = answers.length;
     const pieData = Array.from(counts, ([answer, count]) => ({
@@ -142,6 +151,7 @@ export default function SurveyInfo() {
       value: count,
       percent: ((count / totalAnswers) * 100).toFixed(0),
     }));
+    
     return pieData;
   };
 
