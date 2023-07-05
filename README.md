@@ -34,6 +34,7 @@ To get started with the Survey Creator Website, follow these steps:
 
     ```plaintext
     VITE_IP_API_KEY=api-key-for-ipdata(use any api you want)
+    VITE_API_KEY=api-key-for-openai
     # Add any other necessary environment variables here
 5. Start the development server:
 
