@@ -48,6 +48,9 @@ export const createSurveySlice = createSlice({
     updateTitle: (state, {payload}) => {
         state.title = payload
     },
+    apiSurvey: (state, {payload}) => {
+      state.questions = payload
+    },
     setLoadingFalse: (state) => {
       state.isloading = false
     },
@@ -63,6 +66,6 @@ export const createSurveySlice = createSlice({
   }
 }
 )
-export const { addQuestion, updateQuestion, updateQuestionData, addAnswer, removeQuestion, reset, updateTitle, setLoadingFalse, goDown, goUp, removeAnswer } = createSurveySlice.actions
+export const { addQuestion, updateQuestion, updateQuestionData, addAnswer, removeQuestion, reset, updateTitle, setLoadingFalse, goDown, goUp, removeAnswer, apiSurvey } = createSurveySlice.actions
 
 export default createSurveySlice.reducer
