@@ -1,8 +1,11 @@
 import {Configuration, OpenAIApi} from "openai";
 
 export default async function gSurvey(topic) {
+    console.log(import.meta.env.VITE_OPENAI_KEY)
 const configuration = new Configuration({
-    apiKey: 'api here',
+
+    apiKey: import.meta.env.VITE_OPENAI_KEY,
+
 });
 
 const openai = new OpenAIApi(configuration);
