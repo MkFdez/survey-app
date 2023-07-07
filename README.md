@@ -20,23 +20,26 @@ To get started with the Survey Creator Website, follow these steps:
 
    ```shell
    https://github.com/MkFdez/Survey_App.git
+2. Install the necessary dependencies. Run the following command in your project directory:
 
-2. Configure environment variables. Create a .env file in the root directory of server folder and provide the necessary configuration values:
+   ```shell
+   npm install
+3. Configure environment variables of the server. Create a .env file in the root directory of server folder and provide the necessary configuration values:
 
     ```plaintext
     MONGO_URL=your-mongo-database-url
     SECRET=your-secret-key-for-encoding/decoding-jwt
     # Add any other necessary environment variables here
-3. Configure environment variables. Create a .env file in the root directory of wonderful-app folder and provide the necessary configuration values:
+4. Configure environment variables of the frontend. Create a .env file in the root directory of wonderful-app folder and provide the necessary configuration values:
 
     ```plaintext
     VITE_IP_API_KEY=api-key-for-ipdata(use any api you want)
     # Add any other necessary environment variables here
-4. Start the development server:
+5. Start the development server:
 
     ```shell
         npm run dev
-5. Access the website by navigating to http://localhost:5173 in your browser.
+6. Access the website by navigating to http://localhost:5173 in your browser.
 
 ## Contributing
 
