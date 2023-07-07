@@ -1,6 +1,6 @@
-# Survey Creator Website 📊
+# Survey Creator Website ⚛️⚡🍃🤖
 
-Welcome to the Survey Creator Website! This website allows you to create custom surveys, share them with others, and view detailed metrics about survey responses. The project is built using React ⚛️, Express ⚡, MongoDB 🍃, Redux 🔄, and provides a user-friendly interface for survey creation and management. It also uses Chakra-UI 💅 for the user interface and the OpenAI API 🤖.
+Welcome to the Survey Creator Website! This website allows you to create custom surveys, share them with others, and view detailed metrics about survey responses. The project is built using React, Express, MongoDB, Redux, and provides a user-friendly interface for survey creation and management. It also uses Chakra-UI for the user interface and the OpenAI API .
 
 ## Features ✨
 
