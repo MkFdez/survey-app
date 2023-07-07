@@ -1,4 +1,4 @@
-import { React } from 'react'
+
 import {
     AlertDialog,
     AlertDialogBody,
@@ -34,6 +34,8 @@ export default function GenerateSurveyDialog(props) {
           isOpen={ props.isOpen}
           leastDestructiveRef={props.cancelRef}
           onClose={props.onClose}
+          closeOnEsc={false}
+          closeOnOverlayClick={false}
         >
           <AlertDialogOverlay>
             <AlertDialogContent>
@@ -46,7 +48,7 @@ export default function GenerateSurveyDialog(props) {
               </AlertDialogBody>
   
               <AlertDialogFooter>
-                <Button ref={cancelRef} onClick={props.onClose}>
+                <Button isDisabled={isLoading} ref={cancelRef} onClick={props.onClose}>
                   Cancel
                 </Button>
                 <Button isLoading={isLoading} colorScheme='red' onClick={generateSurvey} ml={3}>
