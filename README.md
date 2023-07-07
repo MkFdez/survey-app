@@ -1,18 +1,18 @@
-# Survey Creator Website
+# Survey Creator Website 📊
 
-Welcome to the Survey Creator Website! This website allows you to create custom surveys, share them with others, and view detailed metrics about survey responses. The project is built using React, Express, MongoDb, Redux and provides a user-friendly interface for survey creation and management.It also uses Chakra-UI for the user interface and the OpenAI api.
+Welcome to the Survey Creator Website! This website allows you to create custom surveys, share them with others, and view detailed metrics about survey responses. The project is built using React ⚛️, Express ⚡, MongoDB 🍃, Redux 🔄, and provides a user-friendly interface for survey creation and management. It also uses Chakra-UI 💅 for the user interface and the OpenAI API 🤖.
 
-## Features
+## Features ✨
 
-- **User Registration**: Create an account to access the full functionality of the website.
-- **Survey Creation**: Design and customize surveys according to your specific needs.
-- **Survey Creation by AI**: Use openai api for generating surveys by just giving the topic.
-- **Survey Sharing**: Share your surveys by generating unique URLs for each survey.
-- **Response Tracking**: Track the number of responses received for each survey.
-- **Response Analytics**: View detailed statistics and metrics for survey responses, including answer selections.
-- **One-Time Response Limit**: Ensure that each person can only respond to a survey once.
+- **User Registration** 📝: Create an account to access the full functionality of the website.
+- **Survey Creation** 🎨: Design and customize surveys according to your specific needs.
+- **Survey Creation by AI** 🧠: Use the OpenAI API for generating surveys by just giving the topic.
+- **Survey Sharing** 📤: Share your surveys by generating unique URLs for each survey.
+- **Response Tracking** 📈: Track the number of responses received for each survey.
+- **Response Analytics** 📊: View detailed statistics and metrics for survey responses, including answer selections.
+- **One-Time Response Limit** 🔒: Ensure that each person can only respond to a survey once.
 
-## Getting Started
+## Getting Started 🚀
 
 To get started with the Survey Creator Website, follow these steps:
 
@@ -46,7 +46,7 @@ To get started with the Survey Creator Website, follow these steps:
         npm run dev   
 7. Access the website by navigating to http://localhost:5173 in your browser.
 
-## Contributing
+## Contributing 🤝
 
 Contributions are welcome! If you'd like to contribute to the project, please follow these guidelines:
 
@@ -56,11 +56,11 @@ Contributions are welcome! If you'd like to contribute to the project, please fo
 4. Push the changes to your forked repository: `git push origin my-new-feature`.
 5. Submit a pull request detailing your changes.
 
-## License
+## License 📄
 
 This project is licensed under the [MIT License](LICENSE.md).
 
-## Contact
+## Contact ✉️
 
 If you have any questions or suggestions, feel free to contact us at [mirkofs29@outlook.com](mailto:your-email@example.com).
 
