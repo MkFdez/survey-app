@@ -36,11 +36,15 @@ To get started with the Survey Creator Website, follow these steps:
     VITE_IP_API_KEY=api-key-for-ipdata(use any api you want)
     VITE_API_KEY=api-key-for-openai
     # Add any other necessary environment variables here
-5. Start the development server:
+5. Start the development server, the server will be running on http://localhost:5000:
 
     ```shell
         npm run dev
-6. Access the website by navigating to http://localhost:5173 in your browser.
+6. Start the React application inside wonderful-app:
+
+    ```shell
+        npm run dev   
+7. Access the website by navigating to http://localhost:5173 in your browser.
 
 ## Contributing
 
