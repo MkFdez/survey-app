@@ -19,7 +19,7 @@ const SurveyRespond = require('./models/survey_responds')
 class DataAccess{
   static async addSurvey(data, id) {
     const q = new Survey({
-      question : data.questions,
+      questions : data.questions,
       title: data.title,
       public: true,
       date: Date.now(),
@@ -71,7 +71,7 @@ class DataAccess{
 }
 
 static async getUserSurveys(id){
-  const data = await User.findById(id).populate({path:'surveys', select:'-question -owner'}).select("surveys -_id")
+  const data = await User.findById(id).populate({path:'surveys', select:'-questions -owner'}).select("surveys -_id")
   return data
 
 }
