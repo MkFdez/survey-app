@@ -11,10 +11,14 @@ import Cookies from 'js-cookie'
 import axios from 'axios'
 import {  reset, updateTitle } from './redux/createSurvey'
 import cloneDeep from 'lodash/cloneDeep';
+import gSurvey from "../utils/survey_generator"
+import GenerateSurveyDialog from "./components/GenerateSurveyDialog"
 
 export default function CreateSurvey(){
     const { isOpen:isOpenDialog, onOpen:onOpenDialog, onClose:onCloseDialog} = useDisclosure()
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const { isOpen:isOpenGen, onOpen:onOpenGen, onClose:onCloseGen } = useDisclosure()
+
     const cancelRef = React.useRef()
     const btnRef = React.useRef()
     const navigate = useNavigate()
@@ -30,7 +34,7 @@ export default function CreateSurvey(){
                                                 imageFolder={imageFolder}
                                                />)
     
-
+    
      async function createSurvey(){
         let toUpload = []
         console.log(questions)
@@ -91,7 +95,7 @@ export default function CreateSurvey(){
             </Box>
             :
 
-        <Stack pl={'10%'} pr={'10%'}>
+        <Stack pl={'10%'} pr={'10%'} pt={'5%'} pb={'5%'} >
             <FinishSurveyAlertDialog isOpen={isOpenDialog} onClose={onCloseDialog} onOpen={onCloseDialog} cancelRef={cancelRef} onAccept={createSurvey}/>
             <ComponentsDrawer isOpen={isOpen} onClose={onClose} btnRef={btnRef}  />
             <Input value={title} onChange={(event) => {dispatch(updateTitle(event.target.value))}} placeholder="Survey Title" ml={"auto"} mr={"auto"} w={"90%"} p={7}  fontSize={25} fontWeight={"bold"} textAlign={"center"} ></Input>
@@ -104,6 +108,10 @@ export default function CreateSurvey(){
         <Button  colorScheme='red'  w={'100%'} onClick={onOpenDialog} >
                 Finish
         </Button>
+        <Button  colorScheme='red'  w={'100%'} onClick={onOpenGen} >
+                generate by IA
+        </Button>
+        <GenerateSurveyDialog isOpen={isOpenGen} onClose={onCloseGen} onOpen={onOpenGen} cancelRef={cancelRef} onAccept={gSurvey} />
         </Stack>
      
      )

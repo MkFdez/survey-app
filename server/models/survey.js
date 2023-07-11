@@ -3,7 +3,7 @@ const surveySchema = new mongoose.Schema({
     title:String,
     subtitle:String,
     imageSubtitle:String,
-    question: Array,
+    questions: Array,
     owner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
