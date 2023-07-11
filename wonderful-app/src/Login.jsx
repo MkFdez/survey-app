@@ -26,10 +26,14 @@ import axios from 'axios';
         event.preventDefault();
         const response = await axios.post('http://localhost:5000/api/login', {
             withCredentials: true,
+            mode:'no-cors',
             username: username,
             password: password});
         const {token} = response.data;
         const {picture} = response.data;
+        console.log(token)
+        console.log(picture)
+        
         const cookie = new Cookie();
         
         if(!rememberMe) {

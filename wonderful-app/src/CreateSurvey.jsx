@@ -75,12 +75,16 @@ export default function CreateSurvey(){
         const obj = {
             questions : toUpload,
             title: title,
+            mode:'no-cors'
         }
+        const api = axios.create({
+            baseURL: 'http://localhost:5000', // Set the correct API URL
+          });
         const token = 'Bearer ' + Cookies.get('token')
         const config = {
             headers: { Authorization: token },
           }
-        axios.post("http://localhost:5000/api/survey",
+        api.post("/api/survey",
            obj,
            config
         ).then(({data})=> {navigate(`/survey/info/${data.id}`)})

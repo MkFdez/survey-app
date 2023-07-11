@@ -56,21 +56,26 @@ export default function Survey(){
             })}else{
                 youCant()
             } })
-        
+            const token = 'Bearer ' + Cookies.get('token')
+            const config = {
+                headers: { Authorization: token },
+              }
         axios.get("http://localhost:5000/api/survey", 
         {
             params:
             {
             id:id
-            }
+            },
+            config
         }).then(({data}) => {
+            console.log(data)
             dispatch(setSurvey(data))
             setLoading(false)
-            dispatch(start(data.question.length))
+            dispatch(start(data.questions.length))
         }).catch(err => {console.log(err)})
     }, [])
     function nextPage(){
-        if(actualPage == survey.question.length-1){
+        if(actualPage == survey.questions.length-1){
         toast({
             title: 'Survey Complete.',
             description: "The survey have been completed successful.",
@@ -92,10 +97,10 @@ export default function Survey(){
     const toast = useToast()
     const actualPage= useSelector(state => state.survey.actualPage)
     if( !loading){
-        if(actualPage < survey.question.length){
-        if(survey.question[actualPage].pa[0].t != 2){
-            radios = survey.question[actualPage].m ? 
-            survey.question[actualPage].pa.map((x,i) => <Checkbox isChecked={multValues.includes(i.toString())} 
+        if(actualPage < survey.questions.length){
+        if(survey.questions[actualPage].pa[0].t != 2){
+            radios = survey.questions[actualPage].m ? 
+            survey.questions[actualPage].pa.map((x,i) => <Checkbox isChecked={multValues.includes(i.toString())} 
             onChange={() => dispatch(answerMulti(i.toString()))} key={i} value={i.toString()}>{x.t == 1 ? <Image
                 boxSize='150px'
                 objectFit='cover'
@@ -103,21 +108,21 @@ export default function Survey(){
                 alt='Dan Abramov'
                 /> : x.a}</Checkbox>)
             :
-            survey.question[actualPage].pa.map((x,i) => <Radio key={i} value={i.toString()}>{x.t == 1 ? <Image
+            survey.questions[actualPage].pa.map((x,i) => <Radio key={i} value={i.toString()}>{x.t == 1 ? <Image
             boxSize='150px'
             objectFit='cover'
             src={'http://localhost:5000/'+x.a}
             alt='Dan Abramov'
             /> : x.a}</Radio>)
-            body = <SurveyBody multiple={survey.question[actualPage].pa[0].m} value={value} changeValue={changeValue} radios={radios} heading={survey.question[actualPage].q}/>  
+            body = <SurveyBody multiple={survey.questions[actualPage].pa[0].m} value={value} changeValue={changeValue} radios={radios} heading={survey.questions[actualPage].q}/>  
         }else{
-            if(survey.question[actualPage].pa[0].a > value || survey.question[actualPage].pa[1].a < value ) {
-                changeValue(survey.question[actualPage].pa[0].a)
+            if(survey.questions[actualPage].pa[0].a > value || survey.questions[actualPage].pa[1].a < value ) {
+                changeValue(survey.questions[actualPage].pa[0].a)
             }
             body = <BarSelecion2 
-            heading={survey.question[actualPage].q}
-            start= {survey.question[actualPage].pa[0].a} 
-            end= {survey.question[actualPage].pa[1].a} 
+            heading={survey.questions[actualPage].q}
+            start= {survey.questions[actualPage].pa[0].a} 
+            end= {survey.questions[actualPage].pa[1].a} 
             onChange={changeValue} 
             value={value} />
        
@@ -127,14 +132,14 @@ export default function Survey(){
 }
         
     const finishSurvey =  async () => {
-        axios.post('http://localhost:5000/api/survey/finish', {surveyId : id, response: ans, ip: ip}).then(() => {console.log('done')})
+        axios.post('http://localhost:5000/api/survey/finish', {surveyId : id, response: ans.toString(), ip: ip}).then(() => {console.log('done')})
         Cookies.set(id, true)
     }
 
     
     let percent = 0
     if(!loading){
-     percent = Math.round((actualPage/survey.question.length)*100)
+     percent = Math.round((actualPage/survey.questions.length)*100)
     }
     return(
         <div className="center-container">
@@ -149,7 +154,7 @@ export default function Survey(){
             <Heading as='h6' size='sm'w={"100%"}  mb={"10px"}>{`By ${survey.owner.username}`}</Heading>
         </center>
         <Progress colorScheme='green' size='lg' value={percent} ml={"auto"} mr={"auto"} mb={"10px"}/>
-        <Heading as='h6' size='xs'w={"max-content"} ml={"auto"} mr={"auto"} mb={"10px"}>{`${actualPage} of ${survey.question.length}`}</Heading>     
+        <Heading as='h6' size='xs'w={"max-content"} ml={"auto"} mr={"auto"} mb={"10px"}>{`${actualPage} of ${survey.questions.length}`}</Heading>     
         {body}  
         <Grid templateColumns='repeat(8, 1fr)' mt={"10px"} gap={0}>
             <GridItem colSpan={1} h='10'>

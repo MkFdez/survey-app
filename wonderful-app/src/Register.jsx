@@ -29,21 +29,31 @@ import {
       formData.append('image', p_picture);
       const imageResponse = await axios
       .post('http://localhost:5000/upload', formData, {
+      
       headers: {
           'Content-Type': 'multipart/form-data',
       },
+      mode: 'no-cors'
       })
       const path = imageResponse.data.final_path
+      console.log(path)
+      console.log(imageResponse)
       const userResponse = await axios.post('http://localhost:5000/api/users', {
+        
         username: username,
         email: email,
         password: password,
         picture: path,
+        
+        mode: 'no-cors'
       })
       
       const loginResponse = await axios.post('http://localhost:5000/api/login', {
+        
         username: username,
         password: password,
+        
+        mode: 'no-cors'
       })
       const { token } = loginResponse.data;
       const {picture} = loginResponse.data;

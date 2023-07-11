@@ -11,11 +11,15 @@ const UserSurveys = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const api = axios.create({
+          baseURL: 'http://localhost:5000', // Set the correct API URL
+        });
         const token = 'Bearer ' + Cookies.get('token')
         const config = {
             headers: { Authorization: token },
           }
-        const response = await axios.get('http://localhost:5000/api/users/surveys', config);
+        const response = await api.get('http://localhost:5000/api/users/surveys', config);
+        console.log(response.data)
         setData(response.data.surveys);
       } catch (error) {
         console.error(error);

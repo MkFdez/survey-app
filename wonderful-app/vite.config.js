@@ -15,4 +15,14 @@ export default defineConfig({
       'api/survey' : 'http://localhost:5000'
     }
   },  
+  esbuild: {
+    loader: 'jsx',
+  },
+  optimizeDeps: {
+    esbuildOptions: {
+      loader: {
+        '.js': 'jsx',
+      },
+    },
+  },
 });
