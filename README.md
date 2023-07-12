@@ -24,22 +24,55 @@ To get started with the Survey Creator Website, follow these steps:
 
    ```shell
    npm install
-3. Configure environment variables of the server. Create a .env file in the root directory of server folder and provide the necessary configuration values:
-
-    ```plaintext
-    MONGO_URL=your-mongo-database-url
-    SECRET=your-secret-key-for-encoding/decoding-jwt
-    # Add any other necessary environment variables here
-4. Configure environment variables of the frontend. Create a .env file in the root directory of wonderful-app folder and provide the necessary configuration values:
+3. Configure environment variables of the frontend. Create a .env file in the root directory of wonderful-app folder and provide the necessary configuration values:
 
     ```plaintext
     VITE_IP_API_KEY=api-key-for-ipdata(use any api you want)
     VITE_API_KEY=api-key-for-openai
     # Add any other necessary environment variables here
-5. Start the development server, the server will be running on http://localhost:5000:
-
+4. Start the development server, the server will be running on http://localhost:5000:
+   There are two options for the server:
+   a.You can use an Express server:
+      In this case the used database will be MongoDb with the Mongoose Library. First you need to set up the enviroment variables by creating the .env file in the [server](server) and then start it:
+      
+   ```plaintext
+       //Enviroment variables  
+       MONGO_URL=your-mongo-database-url
+       SECRET=your-secret-key-for-encoding/decoding-jwt
+       # Add any other necessary environment variables here
+   ```
     ```shell
         npm run dev
+    ```
+    b.You can use an ASP.NET Core API as a server:
+      In this case the used database will be SQL Server. First you need to create your in the [dotnet-server project](dotnet-server/dotnet-server) appsettings.json and add the connection string to you db and also the enviroment variables, in this case for JWT encoding/decoding, and then you need to add the migration and update the database:
+   ```plaintext
+      //appsettign.json
+      {
+
+     "ConnectionStrings": {
+       "DefaultConnection": "your connection string"
+     },
+     "AppSettings": {
+       "JWT_SECRET": "your secret key",
+     },
+     "Logging": {
+       "LogLevel": {
+         "Default": "Information",
+         "Microsoft.AspNetCore": "Warning"
+       }
+     },
+     "AllowedHosts": "*"
+   }
+```shell
+   //add migration
+   dotnet ef migrations add yourMigrationName
+```
+```shell
+   //update database
+   dotnet ef database update
+```
+*both servers run in the same port and have the same endpoints, so you don't need to do any change in the React project
 6. Start the React application inside wonderful-app:
 
     ```shell
