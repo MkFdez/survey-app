@@ -1,6 +1,6 @@
 # Survey Creator Website ⚛️⚡🍃🤖
 
-Welcome to the Survey Creator Website! This website allows you to create custom surveys, share them with others, and view detailed metrics about survey responses. The project is built using React, Express, MongoDB, Redux, and provides a user-friendly interface for survey creation and management. It also uses Chakra-UI for the user interface and the OpenAI API .
+Welcome to the Survey Creator Website! This website allows you to create custom surveys, share them with others, and view detailed metrics about survey responses. The project is built using React, Express, MongoDB, Redux, ASP.NET CORE and SQL Server and provides a user-friendly interface for survey creation and management. It also uses Chakra-UI for the user interface and the OpenAI API for automatic survey generation.
 
 ## Features ✨
 
@@ -20,7 +20,7 @@ To get started with the Survey Creator Website, follow these steps:
 
    ```shell
    https://github.com/MkFdez/Survey_App.git
-2. Install the necessary dependencies. Run the following command in your project directory:
+2. Install the necessary dependencies in the front-end. Run the following command in your [wonderful-app](wonderful-app) directory:
 
    ```shell
    npm install
@@ -32,20 +32,26 @@ To get started with the Survey Creator Website, follow these steps:
     # Add any other necessary environment variables here
 4. Start the development server, the server will be running on http://localhost:5000:
    There are two options for the server:
-   a.You can use an Express server:
-      In this case the used database will be MongoDb with the Mongoose Library. First you need to set up the enviroment variables by creating the .env file in the [server](server) and then start it:
-      
+   
+   - You can use an Express server:
+   
+      In this case the used database will be MongoDb with the Mongoose Library. First you need to install the necesary dependencies, then set up the enviroment variables by creating the .env file in the [server](server) and then start it:
+
+   ```shell
+      npm install
+   ```
    ```plaintext
-       //Enviroment variables  
+       //.env
        MONGO_URL=your-mongo-database-url
        SECRET=your-secret-key-for-encoding/decoding-jwt
        # Add any other necessary environment variables here
    ```
-    ```shell
+   ```shell
         npm run dev
     ```
-    b.You can use an ASP.NET Core API as a server:
-      In this case the used database will be SQL Server. First you need to create your in the [dotnet-server project](dotnet-server/dotnet-server) appsettings.json and add the connection string to you db and also the enviroment variables, in this case for JWT encoding/decoding, and then you need to add the migration and update the database:
+    - You can use an ASP.NET Core API as a server:
+   
+      In this case the used database will be SQL Server. First you need to create your in the [dotnet-server project](dotnet-server/dotnet-server) appsettings.json and add the connection string to you db and also the enviroment variables, in this case for JWT encoding/decoding, and then you need to add the migration and update the database and finally run the project:
    ```plaintext
       //appsettign.json
       {
@@ -64,19 +70,25 @@ To get started with the Survey Creator Website, follow these steps:
      },
      "AllowedHosts": "*"
    }
-```shell
-   //add migration
-   dotnet ef migrations add yourMigrationName
-```
-```shell
-   //update database
-   dotnet ef database update
-```
+   ```
+     ```shell
+      //add migration
+      dotnet ef migrations add yourMigrationName
+     ```
+     ```shell
+      //update database
+      dotnet ef database update
+     ```
+     ```shell
+     //run project
+     dotnet run
 *both servers run in the same port and have the same endpoints, so you don't need to do any change in the React project
+
 6. Start the React application inside wonderful-app:
 
-    ```shell
-        npm run dev   
+   ```shell
+      npm run dev
+   ```
 7. Access the website by navigating to http://localhost:5173 in your browser.
 
 ## Contributing 🤝
