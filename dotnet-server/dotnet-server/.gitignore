@@ -460,7 +460,7 @@ ehthumbs_vista.db
 # Dump file
 *.stackdump
 
-appsetting.json
+appsettings.json
 
 # Folder config file
 [Dd]esktop.ini
