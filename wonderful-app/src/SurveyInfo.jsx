@@ -161,7 +161,7 @@ export default function SurveyInfo() {
       <Box key={i}>
         <center>
         <Heading as="h2" size="md" mb={2}>
-          {survey.moreData.question[i].q}
+          {survey.moreData.questions[i].q}
         </Heading>
         </center>
         {question.length > 0 ? (
@@ -184,8 +184,8 @@ export default function SurveyInfo() {
               </Pie>
               <Legend layout="vertical" verticalAlign="bottom" align="center" formatter={
                 (value, entry, index) =>  
-                  survey.moreData.question[i].pa[0].t != 1 
-                ? <span className="text-color-class">{survey.moreData.question[i].pa[0].t == 0?  survey.moreData.question[i].pa[index].a : value}</span> 
+                  survey.moreData.questions[i].pa[0].t != 1 
+                ? <span className="text-color-class">{survey.moreData.questions[i].pa[0].t == 0?  survey.moreData.questions[i].pa[index].a : value}</span> 
                 : <RoundedImage imageUrl={'http://localhost:5000/'+survey.moreData.question[i].pa[index].a} width={'20%'} height={"20%"}/>
                 }/>
               
