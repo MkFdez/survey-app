@@ -51,10 +51,10 @@ export default function Survey(){
                 }
             }).then(({data}) => {
                 if(data.exist){
-                    youCant()
+                    //youCant()
                 }
             })}else{
-                youCant()
+                //youCant()
             } })
         
         axios.get("http://localhost:5000/api/survey", 
@@ -127,7 +127,7 @@ export default function Survey(){
 }
         
     const finishSurvey =  async () => {
-        axios.post('http://localhost:5000/api/survey/finish', {surveyId : id, response: ans, ip: ip}).then(() => {console.log('done')})
+        axios.post('http://localhost:5000/api/survey/finish', {surveyId : id, response: JSON.stringify( ans ), ip: ip}).then(() => {console.log('done')})
         Cookies.set(id, true)
     }
 

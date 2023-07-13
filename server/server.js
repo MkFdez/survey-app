@@ -20,7 +20,7 @@ app.use(express.static('public'));
 app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)
 app.use('/api/checkToken', checkRouter)
-app.use('/api/uploads', uploadRouter)
+app.use('/upload', uploadRouter)
 app.use('/api/survey', surveyRouter)
 app.use(cors({ credentials: true, origin: 'http://localhost:5173' }));
 

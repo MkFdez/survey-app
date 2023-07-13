@@ -4,8 +4,11 @@ const fs = require('fs')
 const uploadRouter = require('express').Router()
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
+      console.log("first")
       if(!fs.existsSync(`public/uploads/${req.body.id}`)){
+        console.log("here")
         fs.mkdir(`public/uploads/${req.body.id}`, (err)=> {
+          console.log(err)
         })
       }
       cb(null, `public/uploads/${req.body.id}`); // Specify the directory where images will be stored
