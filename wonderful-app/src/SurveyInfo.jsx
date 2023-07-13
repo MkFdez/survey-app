@@ -98,15 +98,16 @@ export default function SurveyInfo() {
   const fetchSurveyData = async () => {
     try {
       const data = await axios.get('http://localhost:5000/api/survey/info', {params:{surveyId:id}})
-      setSurvey(data.data);
+      
+        let temp_resp = data.data        
+      setSurvey(temp_resp)
       let q = []
-      let temp = data.data.responses.map(x => x.response)
+      let temp = temp_resp.responses.map(x =>  typeof(x.response) == typeof('word') ? JSON.parse(x.response): x.response)
       for(let i = 0; i < temp[0].length; i++){
         if(typeof(temp[0][i]) == typeof([])){
           let b = []
           for(let a of temp){
             b = b.concat(a[i])
-            console.log(b)
           
           }
           q.push(b)
