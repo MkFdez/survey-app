@@ -49,7 +49,7 @@ export default function CreateSurvey(){
                         formData.append('id', imageFolder)
                         formData.append('image', y.a);
                         let path = await axios
-                        .post('http://localhost:5000/api/uploads', formData, {
+                        .post('http://localhost:5000/upload', formData, {
                         headers: {
                             'Content-Type': 'multipart/form-data',
                         },
