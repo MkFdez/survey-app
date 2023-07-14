@@ -15,6 +15,7 @@ import {
   Collapse,
   Button,
 } from '@chakra-ui/react';
+import QRCode from 'qrcode'
 import Footer from "./components/Footer";
 import Nav from "./components/Nav";
 import { useParams } from 'react-router-dom';
@@ -29,6 +30,17 @@ export default function SurveyInfo() {
   const [selectedQuestion, setSelectedQuestion] = useState(null);
   const chartRef = useRef(null);
   const [containerHeight, setContainerHeight] = useState('300px');
+  useEffect(() => {
+    let canvas = document.getElementById('qrcode')
+    let url = 'http://localhost:5173/survey/'+id
+    if(!canvas) return
+    console.log(canvas)
+    console.log(url)
+    QRCode.toCanvas(canvas, url, function (error) {
+      if (error) console.error(error)
+      console.log('success!');
+    })
+  }, [survey]);
   const forceResize = () => {
     
    
@@ -49,6 +61,7 @@ export default function SurveyInfo() {
          //setTimeout(() => {forceResize()}, 200)
       };
   useEffect(() => {
+    
     forceResize()
     const updateContainerHeight = () => {
       if(chartRef.current != null){
@@ -89,6 +102,9 @@ export default function SurveyInfo() {
     "#4CAF50", // Green
   ];
   
+  
+    
+    
   
   useEffect(() => {
     // Fetch survey data from the server using the surveyId
@@ -132,6 +148,7 @@ export default function SurveyInfo() {
   }
 
   const link = 'http://localhost:5173/survey/'+id
+
   //console.log(questions)
   const participants = survey.responses.map((x,i) => `User ${i}`)
   // Count the number of participants
@@ -187,7 +204,7 @@ export default function SurveyInfo() {
                 (value, entry, index) =>  
                   survey.moreData.questions[i].pa[0].t != 1 
                 ? <span className="text-color-class">{survey.moreData.questions[i].pa[0].t == 0?  survey.moreData.questions[i].pa[index].a : value}</span> 
-                : <RoundedImage imageUrl={'http://localhost:5000/'+survey.moreData.question[i].pa[index].a} width={'20%'} height={"20%"}/>
+                : <RoundedImage imageUrl={'http://localhost:5000/'+survey.moreData.questions[i].pa[index].a} width={'20%'} height={"20%"}/>
                 }/>
               
             </PieChart>
@@ -223,6 +240,8 @@ export default function SurveyInfo() {
           <StatNumber>{participantsCount}</StatNumber>
           <StatHelpText>Click the questions to view details</StatHelpText>
         </Stat>
+        <canvas  id='qrcode' height={'30%'} width={"30%"}></canvas>
+          
       </Grid>
     {
       questions.length > 0 ?
