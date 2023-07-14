@@ -7,7 +7,7 @@ Welcome to the Survey Creator Website! This website allows you to create custom 
 - **User Registration** 📝: Create an account to access the full functionality of the website.
 - **Survey Creation** 🎨: Design and customize surveys according to your specific needs.
 - **Survey Creation by AI** 🧠: Use the OpenAI API for generating surveys by just giving the topic.
-- **Survey Sharing** 📤: Share your surveys by generating unique URLs for each survey.
+- **Survey Sharing** 📤: Share your surveys by generating unique URLs or QR codes for each survey.
 - **Response Tracking** 📈: Track the number of responses received for each survey.
 - **Response Analytics** 📊: View detailed statistics and metrics for survey responses, including answer selections.
 - **One-Time Response Limit** 🔒: Ensure that each person can only respond to a survey once.
