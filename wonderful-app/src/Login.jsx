@@ -22,12 +22,15 @@ import axios from 'axios';
     const [username, setUsername] = useState(''); 
     const [password, setPassword] = useState('');
     const [rememberMe, setRememberMe] = useState(false);
+    const [isLoading, setIsLoading] = useState(false)
     async function handleSubmit(event) {
+      setIsLoading(true)
         event.preventDefault();
         const response = await axios.post('http://localhost:5000/api/login', {
             withCredentials: true,
             username: username,
             password: password});
+        console.log(response.code)
         const {token} = response.data;
         const {picture} = response.data;
         const cookie = new Cookie();
@@ -83,6 +86,7 @@ import axios from 'axios';
                   <Link href='/user/register'color={'blue.400'} >Register</Link>
                 </Stack>
                 <Button
+                isLoading={isLoading}
                 onClick={handleSubmit}
                   bg={'blue.400'}
                   color={'white'}

@@ -21,8 +21,10 @@ import {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [p_picture, setPicture] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
     console.log(p_picture)
     async function onFormSubmit(e){
+      setIsLoading(true)
       e.preventDefault();
       const formData = new FormData();
       formData.append('id', `pps/${generateGUID()}`)
@@ -40,6 +42,7 @@ import {
         password: password,
         picture: path,
       })
+      console.log(userResponse.code)
       
       const loginResponse = await axios.post('http://localhost:5000/api/login', {
         username: username,
@@ -126,6 +129,7 @@ import {
           </FormControl>
           <Stack spacing={6} direction={['column', 'row']}>
             <Button
+            isLoading={isLoading}
               onClick={onFormSubmit}
               bg={'blue.400'}
               color={'white'}
