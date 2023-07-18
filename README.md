@@ -20,7 +20,7 @@ To get started with the Survey Creator Website, follow these steps:
 
    ```shell
    https://github.com/MkFdez/Survey_App.git
-2. Install the necessary dependencies in the front-end. Run the following command in your [wonderful-app](wonderful-app) directory:
+2. Install the necessary dependencies in the front-end React project. Run the following command in your [wonderful-app](wonderful-app) directory:
 
    ```shell
    npm install
@@ -82,7 +82,8 @@ To get started with the Survey Creator Website, follow these steps:
      ```shell
      //run project
      dotnet run
-*both servers run in the same port and have the same endpoints, so you don't need to do any change in the React project
+     ```
+   *both servers run in the same port and have the same endpoints, so you don't need to do any change in the React project
 
 6. Start the React application inside wonderful-app:
 
