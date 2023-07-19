@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const surveyRespondSchema = new mongoose.Schema({
     surveyId: String,
     response: Object,
+    date: Date,
   })
   surveyRespondSchema.set('toJSON', {
     transform: (document, returnedObject) => {

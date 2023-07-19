@@ -45,7 +45,8 @@ class DataAccess{
   static async addResponse(response, surveyId, ip){
     const res = new SurveyRespond({
       surveyId: surveyId,
-      response : response
+      response : response,
+      date: new Date(),
     })
     const survey =await Survey.findById(surveyId)
     await res.save()
