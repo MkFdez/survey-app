@@ -9,6 +9,7 @@ namespace dotnet_server.Services
         {
             var json = new JObject();
             json["response"] = response.Response;
+            json["date"] = response.date;
             return json;
         }
         public static JObject ToJsonPossibleAns(PossibleAnswer pa)

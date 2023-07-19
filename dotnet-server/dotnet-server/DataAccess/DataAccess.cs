@@ -85,7 +85,7 @@ public class DataAccess : IDataAccess
         {
             var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
             Survey survey = context.Surveys.Include(x => x.SurveyResponses).Include(x => x.UsedIps).FirstOrDefault(x => x.Id == surveyId) ?? new Survey();
-            survey.SurveyResponses.Add(new SurveyResponse() { Id = Guid.NewGuid().ToString(), Response = response, Survey = survey});
+            survey.SurveyResponses.Add(new SurveyResponse() { Id = Guid.NewGuid().ToString(), Response = response, Survey = survey, date = DateTime.Now});
             survey.UsedIps.Add(new UsedIps() { Id = Guid.NewGuid().ToString(), Ip = ip });
             context.SaveChanges();
         }

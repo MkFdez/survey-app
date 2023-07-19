@@ -8,5 +8,6 @@ namespace dotnet_server.Models
         public string Id { get; set; }
         public Survey Survey { get; set; }
         public string Response { get; set; }
+        public DateTime date { get; set; }
     }
 }
