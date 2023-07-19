@@ -4,6 +4,12 @@ import axios from 'axios';
 import Cookie from 'universal-cookie';
 import { useNavigate } from 'react-router-dom';
 import {
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+} from '@chakra-ui/react'
+import {
     Button,
     Flex,
     FormControl,
@@ -21,6 +27,8 @@ import {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [p_picture, setPicture] = useState('');
+    const [isError, setError] = useState(false)
+
     const [isLoading, setIsLoading] = useState(false);
     console.log(p_picture)
     async function onFormSubmit(e){
@@ -42,7 +50,7 @@ import {
         password: password,
         picture: path,
       })
-      console.log(userResponse.code)
+      console.log(userResponse)
       
       const loginResponse = await axios.post('http://localhost:5000/api/login', {
         username: username,
@@ -97,6 +105,13 @@ import {
               <IconUploader image={p_picture} upt={(img) => {setPicture(img)}}/>
             </Stack>
           </FormControl>
+          {isError &&
+          <Alert status='error'>
+            <AlertIcon />
+            <AlertTitle>Your browser is outdated!</AlertTitle>
+            <AlertDescription>Your Chakra experience may be degraded.</AlertDescription>
+          </Alert>
+          }
           <FormControl id="userName" isRequired>
             <FormLabel>User name</FormLabel>
             <Input
