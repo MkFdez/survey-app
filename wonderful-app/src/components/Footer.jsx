@@ -64,8 +64,6 @@ import {
   useEffect(() => {
     const handleResize = (reverse = false) => {
       let isLong = document.body.offsetHeight >= window.innerHeight;
-      console.log(document.body.offsetHeight)
-      console.log(window.innerHeight)
       if(reverse) isLong = !isLong
       setIsContentLong(isLong);
     };
@@ -123,7 +121,7 @@ import {
             spacing={4}
             justify={{ base: 'center', md: 'space-between' }}
             align={{ base: 'center', md: 'center' }}>
-            <Text>© 2022 Chakra Templates. All rights reserved</Text>
+            <Text>© 2023 Chakra Templates. All rights reserved</Text>
             <Stack direction={'row'} spacing={6}>
               <SocialButton label={'Twitter'} href={'#'}>
                 <FaTwitter />
