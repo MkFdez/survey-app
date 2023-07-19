@@ -64,6 +64,8 @@ import {
   useEffect(() => {
     const handleResize = (reverse = false) => {
       let isLong = document.body.offsetHeight >= window.innerHeight;
+      console.log(document.body.offsetHeight)
+      console.log(window.innerHeight)
       if(reverse) isLong = !isLong
       setIsContentLong(isLong);
     };

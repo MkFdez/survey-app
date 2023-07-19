@@ -23,10 +23,12 @@ import { PieChart, Pie, Cell, Legend, ResponsiveContainer } from 'recharts';
 import CopyTextComponent from './components/CopyTextComponent';
 import axios from 'axios';
 import RoundedImage from './components/RoundedImage';
+import DatesGraphic from './components/DatesGraphic';
 export default function SurveyInfo() {
   const { id } = useParams();
   const [survey, setSurvey] = useState(null);
   const [questions, setQuestions] = useState([]) 
+  const [dates, setDates] = useState([])
   const [selectedQuestion, setSelectedQuestion] = useState(null);
   const chartRef = useRef(null);
   const [containerHeight, setContainerHeight] = useState('300px');
@@ -119,6 +121,8 @@ export default function SurveyInfo() {
       setSurvey(temp_resp)
       let q = []
       let temp = temp_resp.responses.map(x =>  typeof(x.response) == typeof('word') ? JSON.parse(x.response): x.response)
+      let dates_array = temp_resp.responses.map(x => x.date)
+      setDates(dates_array)
       for(let i = 0; i < temp[0].length; i++){
         if(typeof(temp[0][i]) == typeof([])){
           let b = []
@@ -243,6 +247,7 @@ export default function SurveyInfo() {
         <canvas  id='qrcode' height={'30%'} width={"30%"}></canvas>
           
       </Grid>
+      <DatesGraphic datesData={dates} />
     {
       questions.length > 0 ?
       <>
@@ -283,7 +288,7 @@ export default function SurveyInfo() {
       <center><Text>nobody has answered this survey</Text></center>
           }
     </Box>
-    <Footer reverse={true} />
+    <Footer  />
     </>
   );
 }
