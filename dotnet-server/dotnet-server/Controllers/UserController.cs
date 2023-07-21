@@ -4,6 +4,7 @@ using dotnet_server.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Security.Claims;
 
 namespace dotnet_server.Controllers
@@ -27,6 +28,12 @@ namespace dotnet_server.Controllers
         [HttpPost("")]
         public IActionResult Index(RegisterModel model)
         {
+            int status = _dataAccess.CheckUser(model.username, model.email);
+            if(status != 0)
+            {
+                string message = status == 3 ? "username and email" : status == 2 ? "username" : "email";
+                return BadRequest(new { error = $"{message} already exists" });
+            }
             string pass = SecretHasher.Hash(model.password);
             _dataAccess.NewUser(model.username,  pass, model.email, model.picture);
             return Ok();

@@ -113,6 +113,29 @@ public class DataAccess : IDataAccess
             return surveys;
         }
     }
+    public int CheckUser(string username, string email)
+    {
+        using (var scope = _scope.CreateScope())
+        {
+            var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+            var name = context.Users.FirstOrDefault(x => x.Name== username);
+            var mail = context.Users.FirstOrDefault(x => x.Name== email);
+            if(name!= null && mail != null)
+            {
+                return 3;
+            }
+            if(name != null)
+            {
+                return 2;
+            }
+            if(mail != null)
+            {
+                return 1;
+            }
+            return 0;
+
+        }
+    }
     public Survey GetSurveysLite(string id)
     {
         using (var scope = _scope.CreateScope())

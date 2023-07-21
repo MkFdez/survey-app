@@ -7,7 +7,11 @@ const getTokenFrom = require('../utils/gtfr')
 
 usersRouter.post('/', async (request, response) => {
   const { username, email, password, picture } = request.body
-
+  let value = await DataAccess.checkUser(username, email)
+  if(value != 0){
+    let message = value == 3 ? "username and email" : value == 2 ? 'username' : 'email'
+    return response.status(400).json({ error: `${message} already exists` })
+  }
   const saltRounds = 10
   const passwordHash = await bcrypt.hash(password, saltRounds)
 

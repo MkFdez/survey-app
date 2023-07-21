@@ -14,6 +14,11 @@ import {
     Heading,
     Text,
     useColorModeValue,
+    Alert,
+    AlertIcon,
+    AlertTitle,
+    AlertDescription,
+  
   } from '@chakra-ui/react';
 import axios from 'axios';
   
@@ -22,15 +27,25 @@ import axios from 'axios';
     const [username, setUsername] = useState(''); 
     const [password, setPassword] = useState('');
     const [rememberMe, setRememberMe] = useState(false);
+    const [isError, setIsError] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
     async function handleSubmit(event) {
       setIsLoading(true)
         event.preventDefault();
-        const response = await axios.post('http://localhost:5000/api/login', {
+        try{
+        var response = await axios.post('http://localhost:5000/api/login', {
             withCredentials: true,
             username: username,
             password: password});
-        console.log(response.code)
+        }
+        catch(error){
+            console.log(error)
+            setIsLoading(false)
+            setIsError(true)
+            
+            return;
+        
+        }
         const {token} = response.data;
         const {picture} = response.data;
         const cookie = new Cookie();
@@ -68,6 +83,13 @@ import axios from 'axios';
             boxShadow={'lg'}
             p={8}>
             <Stack spacing={4}>
+            {isError &&
+          <Alert status='error'>
+            <AlertIcon />
+            <AlertTitle>Error!</AlertTitle>
+            <AlertDescription>Please check your username and password</AlertDescription>
+          </Alert>
+          }
               <FormControl id="email">
                 <FormLabel>Email address</FormLabel>
                 <Input type="email" value={username} onChange={e => setUsername(e.target.value)}/>

@@ -51,8 +51,8 @@ namespace dotnet_server.Controllers
             }
             else
             {
-                return Unauthorized();
-            }
+                return Unauthorized(new {error = "invalid username or password"});
+                }
         }
     }
 }

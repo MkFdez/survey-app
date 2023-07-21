@@ -3,15 +3,11 @@ import { useState } from 'react';
 import axios from 'axios';
 import Cookie from 'universal-cookie';
 import { useNavigate } from 'react-router-dom';
-import {
-  Alert,
-  AlertIcon,
-  AlertTitle,
-  AlertDescription,
-} from '@chakra-ui/react'
+
 import {
     Button,
     Flex,
+    FormErrorMessage,
     FormControl,
     FormLabel,
     Heading,
@@ -21,36 +17,57 @@ import {
   } from '@chakra-ui/react';
   import { SmallCloseIcon } from '@chakra-ui/icons';
   import IconUploader from './components/IconUploader';
+import { set } from 'lodash';
   export default function Register({check}) {
     const navigate = useNavigate()
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [p_picture, setPicture] = useState('');
-    const [isError, setError] = useState(false)
+    const [usernameError, setUsernameError] = useState({error: false, message: ''});
+    const [emailError, setEmailError] = useState({error: false, message: ''});
+    const [passwordError, setPasswordError] = useState({error: false, message: ''});
 
     const [isLoading, setIsLoading] = useState(false);
     console.log(p_picture)
+    let path = null
     async function onFormSubmit(e){
       setIsLoading(true)
       e.preventDefault();
       const formData = new FormData();
       formData.append('id', `pps/${generateGUID()}`)
       formData.append('image', p_picture);
+      try{
       const imageResponse = await axios
       .post('http://localhost:5000/upload', formData, {
       headers: {
           'Content-Type': 'multipart/form-data',
       },
       })
-      const path = imageResponse.data.final_path
+      path = imageResponse.data.final_path
+    }catch(err){
+      path = null
+    }
+      try{
       const userResponse = await axios.post('http://localhost:5000/api/users', {
         username: username,
         email: email,
         password: password,
         picture: path,
       })
-      console.log(userResponse)
+      
+    }catch(err){
+      console.log(err)
+        if(err.response.data.error.includes('username')){
+          setUsernameError({error: true, message: 'username already exists'})
+        }
+        if(err.response.data.error == 'email'){
+          setEmailError({error: true, message: 'email already exists'})
+        }
+       setIsLoading(false)
+       return
+    }
+    
       
       const loginResponse = await axios.post('http://localhost:5000/api/login', {
         username: username,
@@ -105,34 +122,35 @@ import {
               <IconUploader image={p_picture} upt={(img) => {setPicture(img)}}/>
             </Stack>
           </FormControl>
-          {isError &&
-          <Alert status='error'>
-            <AlertIcon />
-            <AlertTitle>Your browser is outdated!</AlertTitle>
-            <AlertDescription>Your Chakra experience may be degraded.</AlertDescription>
-          </Alert>
-          }
-          <FormControl id="userName" isRequired>
+          
+          <FormControl isInvalid={usernameError.error} id="userName" isRequired>
             <FormLabel>User name</FormLabel>
             <Input
               placeholder="UserName"
               value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              onChange={(e) => {
+                setUsernameError({error:false, message:""})
+                setUsername(e.target.value)}}
               _placeholder={{ color: 'gray.500' }}
               type="text"
             />
+            
+             {usernameError.error && <FormErrorMessage>{usernameError.message}</FormErrorMessage>}
           </FormControl>
-          <FormControl id="email" isRequired>
+          <FormControl isInvalid={emailError.error} id="email" isRequired>
             <FormLabel>Email address</FormLabel>
             <Input
               placeholder="your-email@example.com"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => {
+                  setEmailError({error: false, message:""})
+                  setEmail(e.target.value)}}
               _placeholder={{ color: 'gray.500' }}
               type="email"
             />
+            {emailError.error && <FormErrorMessage>{emailError.message}</FormErrorMessage>}
           </FormControl>
-          <FormControl id="password" isRequired>
+          <FormControl isInvalid={passwordError.error} id="password" isRequired>
             <FormLabel>Password</FormLabel>
             <Input
               placeholder="password"
