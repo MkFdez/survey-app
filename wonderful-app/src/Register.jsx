@@ -32,8 +32,12 @@ import { set } from 'lodash';
     console.log(p_picture)
     let path = null
     async function onFormSubmit(e){
-      setIsLoading(true)
+      
       e.preventDefault();
+      if(passwordError.error){
+        return
+      }
+      setIsLoading(true)
       const formData = new FormData();
       formData.append('id', `pps/${generateGUID()}`)
       formData.append('image', p_picture);
@@ -155,10 +159,19 @@ import { set } from 'lodash';
             <Input
               placeholder="password"
               value={password}  
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+                if(!e.target.value.match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)){
+                  setPasswordError({error: true, message:"the password must be at least eight characters, at least one letter and one number"})
+                  }else{
+                    setPasswordError({error: false, message:""})
+                  }
+                
+                setPassword(e.target.value)
+              }}
               _placeholder={{ color: 'gray.500' }}
               type="password"
             />
+            {passwordError.error && <FormErrorMessage>{passwordError.message}</FormErrorMessage>}
           </FormControl>
           <Stack spacing={6} direction={['column', 'row']}>
             <Button
