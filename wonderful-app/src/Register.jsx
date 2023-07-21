@@ -34,7 +34,10 @@ import { set } from 'lodash';
     async function onFormSubmit(e){
       
       e.preventDefault();
-      if(passwordError.error){
+      if(passwordError.error || emailError.error || passwordError.error){
+        return
+      }
+      if(!username.trim() || !password.trim() || !email.trim()){
         return
       }
       setIsLoading(true)
@@ -147,7 +150,13 @@ import { set } from 'lodash';
               placeholder="your-email@example.com"
                 value={email}
                 onChange={(e) => {
+                  if(!e.target.value.match(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)){
+                    setEmailError({error: true, message:"please provide a valid email address"})
+                  
+                  }else{
                   setEmailError({error: false, message:""})
+                  }
+                  
                   setEmail(e.target.value)}}
               _placeholder={{ color: 'gray.500' }}
               type="email"
