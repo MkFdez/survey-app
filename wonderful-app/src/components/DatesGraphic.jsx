@@ -18,7 +18,7 @@ const DatesGraphic = ({ datesData }) => {
 
   const dateCounts = getDateCounts();
   const maxCount = Math.max(...Object.values(dateCounts));
-  const yTicks = Array.from({ length: maxCount + 1 }, (_, index) => index);
+  const yTicks = Array.from({ length: maxCount*2+1 }, (_, index) => index);
 
   // Convert date counts object to an array of data points for the chart
   const chartData = Object.keys(dateCounts).map((date) => ({
@@ -27,12 +27,12 @@ const DatesGraphic = ({ datesData }) => {
   }));
   //TODO: Style the graphic
   return (
+    
     <LineChart width={600} height={300} data={chartData}>
       <XAxis dataKey="date" />
       <YAxis ticks={yTicks}/>
       <CartesianGrid strokeDasharray="3 3" />
       <Tooltip />
-      <Legend />
       <Line type="monotone" dataKey="count" stroke="#8884d8" />
     </LineChart>
   );
