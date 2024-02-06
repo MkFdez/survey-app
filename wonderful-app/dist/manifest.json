@@ -1,0 +1,21 @@
+{
+  "src/assets/testVideo.mp4": {
+    "file": "assets/testVideo-bbf50130.mp4",
+    "src": "src/assets/testVideo.mp4"
+  },
+  "src/main.css": {
+    "file": "assets/main-810cb7e9.css",
+    "src": "src/main.css"
+  },
+  "src/main.jsx": {
+    "assets": [
+      "assets/testVideo-bbf50130.mp4"
+    ],
+    "css": [
+      "assets/main-810cb7e9.css"
+    ],
+    "file": "assets/main-6d7de0a5.js",
+    "isEntry": true,
+    "src": "src/main.jsx"
+  }
+}
