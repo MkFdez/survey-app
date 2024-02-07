@@ -6,10 +6,19 @@ export default defineConfig({
   plugins: [react()],
   build: {
     manifest: true,
+    outDir: 'dist',
     rollupOptions: {
-      input: "./src/main.jsx",
-    },
+      external: ["react-refresh"],
+      output:
+      {
+          format: 'es',
+          strict: false,
+          entryFileNames: "[name].js",
+          dir: 'dist/'
+      }
+   }
   },
+  
   server:{
     proxy:{
       'api/survey' : 'http://localhost:5000'
