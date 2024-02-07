@@ -18,7 +18,9 @@ import {
   import { SmallCloseIcon } from '@chakra-ui/icons';
   import IconUploader from './components/IconUploader';
 import { set } from 'lodash';
+import API_URL from '../config/backend';
   export default function Register({check}) {
+    const API = API_URL
     const navigate = useNavigate()
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
@@ -46,7 +48,7 @@ import { set } from 'lodash';
       formData.append('image', p_picture);
       try{
       const imageResponse = await axios
-      .post('http://localhost:5000/upload', formData, {
+      .post(`${API}/upload`, formData, {
       headers: {
           'Content-Type': 'multipart/form-data',
       },
@@ -56,7 +58,7 @@ import { set } from 'lodash';
       path = null
     }
       try{
-      const userResponse = await axios.post('http://localhost:5000/api/users', {
+      const userResponse = await axios.post(`${API}/api/users`, {
         username: username,
         email: email,
         password: password,
@@ -76,7 +78,7 @@ import { set } from 'lodash';
     }
     
       
-      const loginResponse = await axios.post('http://localhost:5000/api/login', {
+      const loginResponse = await axios.post(`${API}/api/login']`, {
         username: username,
         password: password,
       })

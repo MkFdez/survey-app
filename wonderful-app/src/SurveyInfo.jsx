@@ -24,7 +24,9 @@ import CopyTextComponent from './components/CopyTextComponent';
 import axios from 'axios';
 import RoundedImage from './components/RoundedImage';
 import DatesGraphic from './components/DatesGraphic';
+import API_URL from '../config/backend';
 export default function SurveyInfo() {
+  const API = API_URL
   const { id } = useParams();
   const [survey, setSurvey] = useState(null);
   const [questions, setQuestions] = useState([]) 
@@ -34,7 +36,7 @@ export default function SurveyInfo() {
   const [containerHeight, setContainerHeight] = useState('300px');
   useEffect(() => {
     let canvas = document.getElementById('qrcode')
-    let url = 'http://localhost:5173/survey/'+id
+    let url = 'https://surveyswebsite.onrender.com/survey/'+id
     if(!canvas) return
     console.log(canvas)
     console.log(url)
@@ -115,7 +117,7 @@ export default function SurveyInfo() {
 
   const fetchSurveyData = async () => {
     try {
-      const data = await axios.get('http://localhost:5000/api/survey/info', {params:{surveyId:id}})
+      const data = await axios.get(`${API}/api/survey/info`, {params:{surveyId:id}})
       
         let temp_resp = data.data        
       setSurvey(temp_resp)
@@ -151,7 +153,7 @@ export default function SurveyInfo() {
     );
   }
 
-  const link = 'http://localhost:5173/survey/'+id
+  const link = 'https://surveyswebsite.onrender.com/survey/'+id
 
   //console.log(questions)
   const participants = survey.responses.map((x,i) => `User ${i}`)
@@ -208,7 +210,7 @@ export default function SurveyInfo() {
                 (value, entry, index) =>  
                   survey.moreData.questions[i].pa[0].t != 1 
                 ? <span className="text-color-class">{survey.moreData.questions[i].pa[0].t == 0?  survey.moreData.questions[i].pa[index].a : value}</span> 
-                : <RoundedImage imageUrl={'http://localhost:5000/'+survey.moreData.questions[i].pa[index].a} width={'20%'} height={"20%"}/>
+                : <RoundedImage imageUrl={`${API}/`+survey.moreData.questions[i].pa[index].a} width={'20%'} height={"20%"}/>
                 }/>
               
             </PieChart>

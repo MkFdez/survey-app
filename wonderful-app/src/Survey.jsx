@@ -12,10 +12,10 @@ import { start, answer, nextPage as next, prevPage, changeValue as change, reset
 import BarSelecion2 from "./components/ToAnsweComponents/BarSelection";
 import Cookies from 'js-cookie'
 import SurveySuccess from "./components/SurveySuccess";
-
+import API_URL from "../config/backend";
 //data => object with 2 parameters (p => question, a => list of possible answers)
 export default function Survey(){
-    
+    const API = API_URL
     let radios = [];
     var {id} = useParams()
     const survey = useSelector(state => state.survey.survey)
@@ -34,7 +34,7 @@ export default function Survey(){
             duration: 2000,
             isClosable: true,
           })
-        window.location.href = "http://localhost:5173/";
+        window.location.href = `${API}/`;
                     
     }
 
@@ -44,7 +44,7 @@ export default function Survey(){
         axios.get(`https://api.ipdata.co?api-key=${import.meta.env.VITE_IP_API_KEY}`).then(({data}) => {
             setIp(data.ip)
             if(!Cookies.get(id)){
-            axios.get("http://localhost:5000/api/survey/checkIp", {
+            axios.get(`${API}/api/survey/checkIp`, {
                 params: {
                     id: id,
                     ip: data.ip
@@ -57,7 +57,7 @@ export default function Survey(){
                 //youCant()
             } })
         
-        axios.get("http://localhost:5000/api/survey", 
+        axios.get(`${API}/api/survey`, 
         {
             params:
             {
@@ -99,14 +99,14 @@ export default function Survey(){
             onChange={() => dispatch(answerMulti(i.toString()))} key={i} value={i.toString()}>{x.t == 1 ? <Image
                 boxSize='150px'
                 objectFit='cover'
-                src={'http://localhost:5000/'+x.a}
+                src={`${API}/`+x.a}
                 alt='Dan Abramov'
                 /> : x.a}</Checkbox>)
             :
             survey.questions[actualPage].pa.map((x,i) => <Radio key={i} value={i.toString()}>{x.t == 1 ? <Image
             boxSize='150px'
             objectFit='cover'
-            src={'http://localhost:5000/'+x.a}
+            src={`${API}/`+x.a}
             alt='Dan Abramov'
             /> : x.a}</Radio>)
             body = <SurveyBody multiple={survey.questions[actualPage].pa[0].m} value={value} changeValue={changeValue} radios={radios} heading={survey.questions[actualPage].q}/>  
@@ -127,7 +127,7 @@ export default function Survey(){
 }
         
     const finishSurvey =  async () => {
-        axios.post('http://localhost:5000/api/survey/finish', {surveyId : id, response: JSON.stringify( ans ), ip: ip}).then(() => {console.log('done')})
+        axios.post(`${API}/api/survey/finish`, {surveyId : id, response: JSON.stringify( ans ), ip: ip}).then(() => {console.log('done')})
         Cookies.set(id, true)
     }
 

@@ -13,8 +13,9 @@ import {  reset, updateTitle } from './redux/createSurvey'
 import cloneDeep from 'lodash/cloneDeep';
 import gSurvey from "../utils/survey_generator"
 import GenerateSurveyDialog from "./components/GenerateSurveyDialog"
-
+import API_URL from "../config/backend"
 export default function CreateSurvey(){
+    const API = API_URL;
     const { isOpen:isOpenDialog, onOpen:onOpenDialog, onClose:onCloseDialog} = useDisclosure()
     const { isOpen, onOpen, onClose } = useDisclosure()
     const { isOpen:isOpenGen, onOpen:onOpenGen, onClose:onCloseGen } = useDisclosure()
@@ -49,7 +50,7 @@ export default function CreateSurvey(){
                         formData.append('id', imageFolder)
                         formData.append('image', y.a);
                         let path = await axios
-                        .post('http://localhost:5000/upload', formData, {
+                        .post(`${API}/upload`, formData, {
                         headers: {
                             'Content-Type': 'multipart/form-data',
                         },
@@ -80,7 +81,7 @@ export default function CreateSurvey(){
         const config = {
             headers: { Authorization: token },
           }
-        axios.post("http://localhost:5000/api/survey",
+        axios.post(`${API}/api/survey`,
            obj,
            config
         ).then(({data})=> {navigate(`/survey/info/${data.id}`)})

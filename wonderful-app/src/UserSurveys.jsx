@@ -4,10 +4,10 @@ import { Table, Tbody, Tr, Th, Td, Link, Button, Box, Heading, Center } from '@c
 import Nav from './components/Nav'
 import Footer from './components/Footer'
 import Cookies from 'js-cookie'
-
+import API_URL from '../config/backend';
 const UserSurveys = () => {
   const [data, setData] = useState([]);
-
+  const API = API_URL
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -15,7 +15,7 @@ const UserSurveys = () => {
         const config = {
             headers: { Authorization: token },
           }
-        const response = await axios.get('http://localhost:5000/api/users/surveys', config);
+        const response = await axios.get(`${API}/api/users/surveys`, config);
         setData(response.data.surveys);
       } catch (error) {
         console.error(error);
@@ -59,7 +59,7 @@ const UserSurveys = () => {
                 <Td>{item.public.toString()}</Td>
                 <Td>{item.responses.length}</Td>
                 <Td>
-                  <Link href={`http://localhost:5173/survey/info/${item.id}`} isExternal>
+                  <Link href={`https://surveyswebsite.onrender.com//survey/info/${item.id}`} isExternal>
                     <Button variant="link">Info</Button>
                   </Link>
                 </Td>
