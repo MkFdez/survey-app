@@ -1,11 +1,12 @@
 import Cookies from "universal-cookie";
+import API_URL from "../config/backend";
 const isAuthenticated = async () => {
     const cookies = new Cookies()
     const token = cookies.get("token")
   
     if (token) {
       try {
-        const response = await fetch('http://localhost:5000/api/checkToken', {
+        const response = await fetch(`${API_URL}/api/checkToken`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
