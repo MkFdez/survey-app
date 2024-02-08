@@ -10,7 +10,7 @@ const loginRouter = require('./controllers/login')
 const checkRouter = require('./controllers/checkToken')
 const uploadRouter = require('./controllers/upload')
 const surveyRouter = require('./controllers/survey')
-const PORT = 5000;
+const PORT = process.env.PORT || 3030;
 const app = express()
 app.use(cors())
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -31,5 +31,5 @@ app.get('/api', (req, res) => {
 
 })
 
-app.listen(5000, () => {console.log("server started on port 5000")})
+app.listen(PORT, () => {console.log("server started on port 5000")})
 module.exports = app;
