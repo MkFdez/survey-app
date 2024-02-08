@@ -38,13 +38,13 @@ function App() {
  
   return (
     <Routes >
-      <Route path='/' element={<Home />}/>
       <Route path='/survey/:id' element={authenticated ? <Survey /> : <Navigate to={'/user/login'}/>}/>
       <Route path='/survey/create' element={authenticated ? <CreateSurvey/> : <Navigate to={'/user/login'}/>} />
       <Route path='/user/register' element={<Register check={checkAuth}/>}/>
       <Route path='/user/login' element={<Login check={checkAuth}/>}/>
       <Route path='/survey/info/:id' element={authenticated ? <SurveyInfo/> : <Navigate to={'/user/login'}/>} />
       <Route path='/user/surveys' element={authenticated ? <UserSurvey />: <Navigate to={'/user/login'}/>} />
+      <Route path='/' element={<Home />}/>
     </Routes>
     
   )
