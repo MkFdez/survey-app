@@ -21,7 +21,7 @@ export default defineConfig({
   
   server:{
     proxy:{
-      'api/survey' : 'http://localhost:5000'
+      'api/survey' : 'https://surveybackend-r4pd.onrender.com'
     }
   },  
 });

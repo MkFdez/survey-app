@@ -1,6 +1,6 @@
 {
   "name": "wonderful-app",
-  "proxy": "http//:localhost:5000",
+  "proxy": "https://surveybackend-r4pd.onrender.com",
   "private": true,
   "version": "0.0.0",
   "type": "module",

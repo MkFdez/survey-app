@@ -53,7 +53,7 @@ export default function Nav() {
       const isAuthenticatedResult = await isAuthenticated();
       if(isAuthenticatedResult){
         const cookie = new Cookies()
-        setPicture(`http://localhost:5000/${cookie.get('picture')}`)
+        setPicture(`https://surveybackend-r4pd.onrender.com/${cookie.get('picture')}`)
       }else{
         console.log('not Authenticated')
       }
