@@ -23,6 +23,7 @@ loginRouter.post('/', async (request, response) => {
   }
 
   const token = jwt.sign(userForToken, process.env.SECRET, { expiresIn: 60*60*24*30 }) //60s x 60s is  1h, x 24 is 1 day, x 30 is 1 month
+  console.log(`created token - ${token}`)
   const cookie = new Cookies()
   response
     .status(200)
