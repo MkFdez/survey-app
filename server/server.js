@@ -15,15 +15,15 @@ const app = express()
 app.use(cors())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+//app.use(express.json());
+//app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
+app.use(cors({ credentials: true, origin: new URL('https://surveyswebsite.onrender.com' )}));
 app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)
 app.use('/api/checkToken', checkRouter)
 app.use('/upload', uploadRouter)
 app.use('/api/survey', surveyRouter)
-app.use(cors({ credentials: true, origin: 'https://surveyswebsite.onrender.com' }));
 
 
 app.get('/api', (req, res) => {
