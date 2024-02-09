@@ -51,7 +51,8 @@ import API_URL from '../config/backend';
         const {token} = response.data;
         const {picture} = response.data;
         const cookie = new Cookie();
-        console.log(`response - ${response}`)
+        console.log(`response - ${JSON.stringify(response)}`)
+        
         if(!rememberMe) {
             const expirationDate = new Date();
             // Set the cookie with an expiration time of 30 day from the current time
