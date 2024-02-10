@@ -65,6 +65,9 @@ import API_URL from '../config/backend';
         }
         check()
         navigate('/')
+      }else{
+        setIsLoading(false)
+            setIsError(true)
       }
     }
     return (
