@@ -22,7 +22,7 @@ app.use(bodyParser.text())
 app.use(express.static('public'));
 
 app.use('/api/users', usersRouter)
-app.use('/api/login', loginRouter)
+app.use('/api/login', cors(corsOptions), loginRouter)
 app.use('/api/checkToken', checkRouter)
 app.use('/upload', uploadRouter)
 app.use('/api/survey', surveyRouter)
