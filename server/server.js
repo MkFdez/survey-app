@@ -10,19 +10,10 @@ const loginRouter = require('./controllers/login')
 const checkRouter = require('./controllers/checkToken')
 const uploadRouter = require('./controllers/upload')
 const surveyRouter = require('./controllers/survey')
+const corsOptions = require("./config/corsOptions")
 const PORT = process.env.PORT || 3030;
 const app = express()
-app.use(cors({
-    origin: (origin, callback) => {
-        if (origin == 'https://surveyswebsite.onrender.com' ) {
-            callback(null, true)
-        } else {
-            callback(new Error(`Not allowed by CORS ${origin}`))
-        }
-    },
-    credentials: true,
-    optionsSuccessStatus: 200
-}));
+app.use(cors(corsOptions));
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use(bodyParser.text())
