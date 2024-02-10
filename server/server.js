@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 3030;
 const app = express()
 app.use(cors({
     origin: (origin, callback) => {
-        if (origin != 'https://surveyswebsite.onrender.com' ) {
+        if (origin == 'https://surveyswebsite.onrender.com' ) {
             callback(null, true)
         } else {
             callback(new Error('Not allowed by CORS'))
