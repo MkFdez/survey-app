@@ -13,11 +13,7 @@ const surveyRouter = require('./controllers/survey')
 const corsOptions = require("./config/corsOptions")
 const PORT = process.env.PORT || 3030;
 const app = express()
-app.use(cors({
-    origin: "https://surveyswebsite.onrender.com",
-    headers: ["Content-Type"],
-    credentials: true,
-}));
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use(bodyParser.text())
@@ -26,7 +22,7 @@ app.use(bodyParser.text())
 app.use(express.static('public'));
 
 app.use('/api/users', usersRouter)
-app.use('/api/login',loginRouter)
+app.use('/api/login', loginRouter)
 app.use('/api/checkToken', checkRouter)
 app.use('/upload', uploadRouter)
 app.use('/api/survey', surveyRouter)
