@@ -48,6 +48,25 @@ import API_URL from '../config/backend';
             return;
         
         }
+        let formData = new FormData();
+  formData.append("password", password);
+  formData.append("username", username);
+        fetch(`${API}/api/login`, {
+          method: 'POST',
+          body: formData
+        })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(data => {
+          console.log(data);
+        })
+        .catch(error => {
+          console.error('There was a problem with the fetch operation:', error);
+        });
         const {token} = response.data;
         const {picture} = response.data;
         const cookie = new Cookie();
