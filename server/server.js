@@ -13,22 +13,10 @@ const surveyRouter = require('./controllers/survey')
 const corsOptions = require("./config/corsOptions")
 const PORT = process.env.PORT || 3030;
 const app = express()
+app.use(cors(corsOptions));
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use(bodyParser.text())
-app.use(function(req, res, next) {
-    // res.header("Access-Control-Allow-Origin", "*");
-    const allowedOrigins = ['https://surveyswebsite.onrender.com'];
-    const origin = req.headers.origin;
-    console.log(origin)
-    if (allowedOrigins.includes(origin)) {
-         res.setHeader('Access-Control-Allow-Origin', origin);
-    }
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-    res.header("Access-Control-Allow-credentials", true);
-    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, UPDATE");
-    next();
-  });
 
 //app.use(express.json());
 //app.use(express.urlencoded({ extended: true }));

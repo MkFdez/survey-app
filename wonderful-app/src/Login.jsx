@@ -38,7 +38,7 @@ import API_URL from '../config/backend';
         var response = await axios.post(`${API}/api/login`, {
             withCredentials: true,
             username: username,
-            password: password});
+            password: password}, {timeout:5000});
         }
         catch(error){
             console.log(error)
