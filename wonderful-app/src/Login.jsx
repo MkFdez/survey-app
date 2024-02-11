@@ -35,10 +35,10 @@ import API_URL from '../config/backend';
       setIsLoading(true)
         event.preventDefault();
         try{
-        var response = await axios.post(`${API}/api/login`, {
-            withCredentials: false, 
-            username: username,
-            password: password}, {timeout:5000});
+          let formData = new FormData();
+  formData.append("password", password);
+  formData.append("username", username);
+        var response = await axios.post(`${API}/api/login`, formData, {timeout:5000});
         }
         catch(error){
             console.log(error)
