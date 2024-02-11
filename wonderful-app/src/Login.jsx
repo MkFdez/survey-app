@@ -36,7 +36,7 @@ import API_URL from '../config/backend';
         event.preventDefault();
         try{
         var response = await axios.post(`${API}/api/login`, {
-            withCredentials: true,
+            withCredentials: false, 
             username: username,
             password: password}, {timeout:5000});
         }
