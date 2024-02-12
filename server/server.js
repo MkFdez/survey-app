@@ -20,7 +20,7 @@ app.use((req, res, next) => {
   console.log(req.body)
   res.setHeader(
     "Access-Control-Allow-Origin",
-    'https://surveyswebsite.onrender.com'
+    '*'
   );
   res.setHeader(
     "Access-Control-Allow-Methods",
@@ -39,7 +39,6 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(cors(corsOptions));
 app.use(express.json())
 
 app.use('/api/users', usersRouter)
