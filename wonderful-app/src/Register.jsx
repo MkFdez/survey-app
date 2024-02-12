@@ -78,7 +78,7 @@ import API_URL from '../config/backend';
     }
     
       
-      const loginResponse = await axios.post(`${API}/api/login']`, {
+      const loginResponse = await axios.post(`${API}/api/login`, {
         username: username,
         password: password,
       })

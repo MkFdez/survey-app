@@ -6,7 +6,9 @@ const jwt = require('jsonwebtoken')
 const getTokenFrom = require('../utils/gtfr')
 
 usersRouter.post('/', async (request, response) => {
+  console.log('we got it to register')
   const { username, email, password, picture } = request.body
+  console.log(username)
   let value = await DataAccess.checkUser(username, email)
   if(value != 0){
     let message = value == 3 ? "username and email" : value == 2 ? 'username' : 'email'

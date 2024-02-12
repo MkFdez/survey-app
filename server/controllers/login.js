@@ -4,7 +4,7 @@ const loginRouter = require('express').Router()
 const User = require('../models/user')
 const Cookies = require('universal-cookie')
 loginRouter.post('/', async (request, response) => {
-  console.log(request.body)
+  console.log('we got it to login')
   const { username, password } = request.body
 
   const user = await User.findOne({ username })

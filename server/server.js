@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 3030
 const app = express()
 
 app.use((req, res, next) => {
-  console.log(req)
+  console.log(req.body)
   res.setHeader(
     "Access-Control-Allow-Origin",
     'https://surveyswebsite.onrender.com'
