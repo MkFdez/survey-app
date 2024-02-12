@@ -51,7 +51,7 @@ import API_URL from '../config/backend';
       .post(`${API}/upload`, formData, {
       headers: {
           'Content-Type': 'multipart/form-data',
-      },
+      }, withCredentials : true
       })
       path = imageResponse.data.final_path
     }catch(err){
@@ -63,7 +63,7 @@ import API_URL from '../config/backend';
         email: email,
         password: password,
         picture: path,
-      })
+      }, {withCredentials: true})
       
     }catch(err){
       console.log(err)

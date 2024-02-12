@@ -13,11 +13,12 @@ const surveyRouter = require('./controllers/survey')
 const corsOptions = require('./config/corsOptions')
 const PORT = process.env.PORT || 3030
 const app = express()
-app.use(bodyParser.json())
-
-app.use(cors(corsOptions))
-
+app.use(express.static('public'))
 app.use(express.json())
+
+app.use(cors())
+
+
 
 app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)
