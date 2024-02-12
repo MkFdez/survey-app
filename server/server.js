@@ -10,7 +10,7 @@ const loginRouter = require('./controllers/login')
 const checkRouter = require('./controllers/checkToken')
 const uploadRouter = require('./controllers/upload')
 const surveyRouter = require('./controllers/survey')
-
+const corsOptions = require('./config/corsOptions')
 const PORT = process.env.PORT || 3030
 const app = express()
 
