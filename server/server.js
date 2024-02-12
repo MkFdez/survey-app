@@ -13,8 +13,9 @@ const surveyRouter = require('./controllers/survey')
 
 const PORT = process.env.PORT || 3030
 const app = express()
-//app.use(cors(corsOptions));
+
 app.use((req, res, next) => {
+  console.log(req)
   res.setHeader(
     "Access-Control-Allow-Origin",
     'https://surveyswebsite.onrender.com'
@@ -34,7 +35,7 @@ app.use((req, res, next) => {
 
   next();
 });
-
+app.use(cors(corsOptions));
 app.use(express.json())
 
 app.use('/api/users', usersRouter)
