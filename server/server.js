@@ -13,6 +13,7 @@ const surveyRouter = require('./controllers/survey')
 const corsOptions = require('./config/corsOptions')
 const PORT = process.env.PORT || 3030
 const app = express()
+app.use(bodyParser.json())
 
 app.use((req, res, next) => {
   console.log("body")
@@ -37,6 +38,7 @@ app.use((req, res, next) => {
 
   next();
 });
+
 app.use(cors(corsOptions));
 app.use(express.json())
 
