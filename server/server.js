@@ -15,6 +15,7 @@ const PORT = process.env.PORT || 3030
 const app = express()
 
 app.use((req, res, next) => {
+  console.log("body")
   console.log(req.body)
   res.setHeader(
     "Access-Control-Allow-Origin",
@@ -32,6 +33,7 @@ app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Private-Network", true);
   //  Firefox caps this at 24 hours (86400 seconds). Chromium (starting in v76) caps at 2 hours (7200 seconds). The default value is 5 seconds.
   res.setHeader("Access-Control-Max-Age", 7200);
+  console.log(req.headers("Origin"))
 
   next();
 });
