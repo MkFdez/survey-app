@@ -25,7 +25,7 @@ const storage = multer.diskStorage({
   
   // Define the route for image uploading
   uploadRouter.post('/', upload.single('image'), (req, res) => {
-    
+    console.log("in uploads")
     if (!req.file) {
       return res.status(400).json({ error: 'No image provided' });
     }
