@@ -38,7 +38,7 @@ import API_URL from '../config/backend';
           let formData = new FormData();
   formData.append("password", password);
   formData.append("username", username);
-        var response = await axios.post(`${API}/api/login`, formData, {timeout:15000});
+        var response = await axios.post("https://surveybackend-r4pd.onrender.com/api/login", formData, {timeout:15000});
         }
         catch(error){
             console.log(error)
