@@ -15,7 +15,7 @@ import gSurvey from "../utils/survey_generator"
 import GenerateSurveyDialog from "./components/GenerateSurveyDialog"
 import API_URL from "../config/backend"
 export default function CreateSurvey(){
-    const API = API_URL;
+    const API = API_URL();
     const { isOpen:isOpenDialog, onOpen:onOpenDialog, onClose:onCloseDialog} = useDisclosure()
     const { isOpen, onOpen, onClose } = useDisclosure()
     const { isOpen:isOpenGen, onOpen:onOpenGen, onClose:onCloseGen } = useDisclosure()

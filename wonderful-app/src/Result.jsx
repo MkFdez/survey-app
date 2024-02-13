@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import API_URL from "../config/backend";
 export default function Result() {
-    const API = API_URL
+    const API = API_URL()
     const [result, setResult] = useState([]);
     const {id} = useParams();
     let stats = [];

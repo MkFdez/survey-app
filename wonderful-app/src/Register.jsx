@@ -20,7 +20,7 @@ import {
 import { set } from 'lodash';
 import API_URL from '../config/backend';
   export default function Register({check}) {
-    const API = API_URL
+    const API = API_URL()
     const navigate = useNavigate()
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');

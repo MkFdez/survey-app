@@ -26,7 +26,7 @@ import RoundedImage from './components/RoundedImage';
 import DatesGraphic from './components/DatesGraphic';
 import API_URL from '../config/backend';
 export default function SurveyInfo() {
-  const API = API_URL
+  const API = API_URL()
   const { id } = useParams();
   const [survey, setSurvey] = useState(null);
   const [questions, setQuestions] = useState([]) 

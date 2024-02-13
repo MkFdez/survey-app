@@ -24,7 +24,7 @@ import axios from 'axios';
 import API_URL from '../config/backend';
   
   export default function Login({check}) {
-    const API = API_URL
+    const API = API_URL()
     const navigate = useNavigate()
     const [username, setUsername] = useState(''); 
     const [password, setPassword] = useState('');

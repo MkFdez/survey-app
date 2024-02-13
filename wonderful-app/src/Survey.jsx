@@ -15,7 +15,7 @@ import SurveySuccess from "./components/SurveySuccess";
 import API_URL from "../config/backend";
 //data => object with 2 parameters (p => question, a => list of possible answers)
 export default function Survey(){
-    const API = API_URL
+    const API = API_URL()
     let radios = [];
     var {id} = useParams()
     const survey = useSelector(state => state.survey.survey)

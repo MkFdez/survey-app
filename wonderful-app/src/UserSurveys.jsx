@@ -7,7 +7,7 @@ import Cookies from 'js-cookie'
 import API_URL from '../config/backend';
 const UserSurveys = () => {
   const [data, setData] = useState([]);
-  const API = API_URL
+  const API = API_URL()
   useEffect(() => {
     const fetchData = async () => {
       try {
