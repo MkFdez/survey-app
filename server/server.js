@@ -16,20 +16,8 @@ const app = express()
 app.use(express.static('public'))
 app.use(express.json())
 
-app.use(cors())
+app.use(cors(corsOptions))
 
-// Set preflight
-app.options("*", (req, res) => {
-    console.log("preflight");
-    if (
-      req.headers.origin === "https://surveyswebsite.onrender.com" 
-     ) {
-      console.log("pass");
-      return res.status(204).send();
-    } else {
-      console.log("fail");
-    }
-})
 
 app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)

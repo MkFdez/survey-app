@@ -48,7 +48,7 @@ import API_URL from '../config/backend';
             return;
         
         }
-        const unused = await axios.get(`${API}/healthz`)
+        
         const {token} = response.data;
         const {picture} = response.data;
         const cookie = new Cookie();
