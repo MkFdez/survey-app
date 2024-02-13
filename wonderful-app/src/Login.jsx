@@ -38,7 +38,7 @@ import API_URL from '../config/backend';
           let formData = new FormData();
   formData.append("password", password);
   formData.append("username", username);
-        var response = await axios.post(`${API}/api/login`, formData, {timeout:5000});
+        var response = await axios.post(`${API}/api/login`, formData, {timeout:15000});
         }
         catch(error){
             console.log(error)
@@ -48,25 +48,7 @@ import API_URL from '../config/backend';
             return;
         
         }
-        let formData = new FormData();
-  formData.append("password", password);
-  formData.append("username", username);
-        fetch(`${API}/api/login`, {
-          method: 'POST',
-          body: formData
-        })
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Network response was not ok');
-          }
-          return response.json();
-        })
-        .then(data => {
-          console.log(data);
-        })
-        .catch(error => {
-          console.error('There was a problem with the fetch operation:', error);
-        });
+        const unused = await axios.get(`${API}/healthz`)
         const {token} = response.data;
         const {picture} = response.data;
         const cookie = new Cookie();
