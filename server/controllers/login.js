@@ -27,7 +27,7 @@ loginRouter.post('/', async (request, response) => {
   console.log(`created token - ${token}`)
   const cookie = new Cookies()
   response
-    .status(401)
+    .status(200)
     .send({ token, username: user.username, name: user.name, picture: user.picture })
 })
 
