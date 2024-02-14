@@ -84,10 +84,13 @@ import API_URL from '../config/backend';
       })
       const { token } = loginResponse.data;
       const {picture} = loginResponse.data;
+      const {username : user} = loginResponse.data;
       console.log(token);
       const cookie = new Cookie();
       cookie.set('token', token, { path: '/', sameSite: 'none', secure: true});
       cookie.set('picture', picture, { path: '/', sameSite: 'none', secure: true});
+      cookie.set('username', user, { path: '/', sameSite: 'none', secure: true});
+
       check()
       navigate('/');
     }
