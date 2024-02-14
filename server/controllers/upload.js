@@ -7,7 +7,7 @@ const storage = multer.diskStorage({
       console.log("first")
       if(!fs.existsSync(`public/uploads/${req.body.id}`)){
         console.log("here")
-        fs.mkdir(`public/uploads/${req.body.id}`, (err)=> {
+        fs.mkdirSync(`public/uploads/${req.body.id}`,{recursive: true}, (err)=> {
           console.log("error making dir")
           console.log(err)
         })
