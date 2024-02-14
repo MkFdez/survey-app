@@ -8,6 +8,7 @@ const storage = multer.diskStorage({
       if(!fs.existsSync(`public/uploads/${req.body.id}`)){
         console.log("here")
         fs.mkdir(`public/uploads/${req.body.id}`, (err)=> {
+          console.log("error making dir")
           console.log(err)
         })
       }
@@ -32,6 +33,7 @@ const storage = multer.diskStorage({
     
     // Get the file path of the uploaded image
     const temp = req.file.path.split(`\\`)
+    console.log(req.file.path)
     temp.shift()
     
     const final_path = temp.join(`\\`)
