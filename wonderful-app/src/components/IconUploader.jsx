@@ -18,6 +18,7 @@ export default function IconUploader(props) {
   };
   const handleImageInputChange = (event) => {
     const file = event.target.files[0];
+    console.log(event.target)
     const reader = new FileReader();
     reader.onloadend = () => {
       setImage(reader.result);
