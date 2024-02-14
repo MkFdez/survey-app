@@ -54,7 +54,9 @@ export default function Nav() {
       const isAuthenticatedResult = await isAuthenticated();
       if(isAuthenticatedResult){
         const cookie = new Cookies()
-        setPicture(`${cookie.get('picture')}`)
+        let picture = cookie.get('picture')
+        picture = picture.replace('public/', "")
+        setPicture(`${picture}`)
         setUsername(cookie.get('username'))
       }else{
         console.log('not Authenticated')

@@ -34,7 +34,6 @@ const storage = multer.diskStorage({
     // Get the file path of the uploaded image
     const temp = req.file.path.split(`\\`)
     console.log(req.file.path)
-    temp.shift()
     console.log(temp)
     const final_path = req.file.path
     return res.status(200).json({ final_path });
