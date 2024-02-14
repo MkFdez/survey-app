@@ -13,7 +13,7 @@ const surveyRouter = require('./controllers/survey')
 const corsOptions = require('./config/corsOptions')
 const PORT = process.env.PORT || 3030
 const app = express()
-app.use(express.static('public'))
+app.use("/public", express.static(path.resolve(__dirname, 'public')));
 app.use(express.json())
 
 app.use(cors(corsOptions))
