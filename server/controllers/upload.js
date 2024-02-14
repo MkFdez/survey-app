@@ -35,7 +35,7 @@ const storage = multer.diskStorage({
     const temp = req.file.path.split(`\\`)
     console.log(req.file.path)
     temp.shift()
-    
+    console.log(temp)
     const final_path = temp.join(`\\`)
     return res.status(200).json({ final_path });
   });
