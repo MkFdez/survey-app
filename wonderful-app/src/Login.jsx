@@ -51,6 +51,7 @@ import API_URL from '../config/backend';
         
         const {token} = response.data;
         const {picture} = response.data;
+        const {username : user} = response.data
         const cookie = new Cookie();
         console.log(`response - ${JSON.stringify(response)}`)
         if(token){
@@ -60,9 +61,12 @@ import API_URL from '../config/backend';
             expirationDate.setDate(expirationDate.getDate() + 30);
             cookie.set('token', token, { expires: expirationDate,  path: '/' , sameSite: 'none', secure: true});
             cookie.set('picture', picture, { expires: expirationDate,  path: '/' , sameSite: 'none', secure: true});
+            cookie.set('username', user, { expires: expirationDate,  path: '/' , sameSite: 'none', secure: true});
         }else{
             cookie.set('token', token, { path: '/' , sameSite: 'none', secure: true});
             cookie.set('picture', picture, { path: '/' , sameSite: 'none', secure: true});
+            cookie.set('username', user, { path: '/' , sameSite: 'none', secure: true});
+
         }
         check()
         navigate('/')

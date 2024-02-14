@@ -46,6 +46,7 @@ export default function Nav() {
   const { colorMode, toggleColorMode } = useColorMode();
   //const { isOpen, onOpen, onClose } = useDisclosure();
   const [picture, setPicture] = useState('')
+  const [username, setUsername] = useState('')
   const [authenticated, setAutheticated] = useState(false)
   console.log(authenticated)
   useEffect(() => {
@@ -53,7 +54,8 @@ export default function Nav() {
       const isAuthenticatedResult = await isAuthenticated();
       if(isAuthenticatedResult){
         const cookie = new Cookies()
-        setPicture(`https://surveybackend-r4pd.onrender.com/${cookie.get('picture')}`)
+        setPicture(`${cookie.get('picture')}`)
+        setUsername(cookie.get('username'))
       }else{
         console.log('not Authenticated')
       }
@@ -113,7 +115,7 @@ export default function Nav() {
                   </Center>
                   <br />
                   <Center>
-                    <p>Username</p>
+                    <p>{username}</p>
                   </Center>
                   <br />
                   <MenuDivider />
