@@ -56,7 +56,7 @@ export default function Nav() {
         const cookie = new Cookies()
         let picture = cookie.get('picture')
         picture = picture.replace('public/', "")
-        setPicture(`${picture}`)
+        setPicture(`https://surveybackend-r4pd.onrender.com/${picture}`)
         setUsername(cookie.get('username'))
       }else{
         console.log('not Authenticated')
