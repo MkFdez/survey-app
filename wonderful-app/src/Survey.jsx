@@ -34,7 +34,7 @@ export default function Survey(){
             duration: 2000,
             isClosable: true,
           })
-        window.location.href = `${API}/`;
+        window.location.href = `https://surveyswebsite.onrender.com/`;
                     
     }
 

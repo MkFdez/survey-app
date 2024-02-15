@@ -43,7 +43,7 @@ function App() {
       <Route path='/user/register' element={<Register check={checkAuth}/>} exact/>
       <Route path='/user/login' element={<Login check={checkAuth}/>} exact/>
       <Route path='/survey/info/:id' element={authenticated ? <SurveyInfo/> : <Navigate to={'/user/login'}/>} exact/>
-      <Route path='/user/surveys' element={authenticated ? <UserSurvey />: <Navigate to={'/user/login'}/>} exact />
+      <Route path='/user/surveys' element={ <UserSurvey />} exact />
       <Route path='/' element={<Home />} exact/>
     </Routes>
     
