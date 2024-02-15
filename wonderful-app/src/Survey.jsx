@@ -49,6 +49,7 @@ export default function Survey(){
                     ip: data.ip
                 }
             }).then(({data}) => {
+                console.log(data)
                 if(data.exist){
                     youCant()
                 }
