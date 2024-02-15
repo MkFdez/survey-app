@@ -39,7 +39,6 @@ export default function Survey(){
     }
 
     useEffect(() => {
-        console.log(import.meta.env.VITE_IP_API_KEY)
         dispatch(reset())
         axios.get(`https://api.ipdata.co?api-key=${import.meta.env.VITE_IP_API_KEY}`).then(({data}) => {
             setIp(data.ip)
@@ -51,7 +50,7 @@ export default function Survey(){
                 }
             }).then(({data}) => {
                 if(data.exist){
-                    //youCant()
+                    youCant()
                 }
             })}else{
                 //youCant()

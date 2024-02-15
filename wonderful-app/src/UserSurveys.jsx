@@ -59,7 +59,7 @@ const UserSurveys = () => {
                 <Td>{item.public.toString()}</Td>
                 <Td>{item.responses.length}</Td>
                 <Td>
-                  <Link href={`https://surveyswebsite.onrender.com//survey/info/${item.id}`} isExternal>
+                  <Link href={`https://surveyswebsite.onrender.com/survey/info/${item.id}`} isExternal>
                     <Button variant="link">Info</Button>
                   </Link>
                 </Td>

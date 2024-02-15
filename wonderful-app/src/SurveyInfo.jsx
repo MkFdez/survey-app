@@ -190,7 +190,7 @@ export default function SurveyInfo() {
         </center>
         {question.length > 0 ? (
            <Box ref={chartRef} height={'300px'} width={'100%'}>
-            <ResponsiveContainer width="100%" height="100%">
+            <ResponsiveContainer width="95%" height={400}>
             <PieChart height={300} width={400} >
               <Pie
                 data={pieData}
