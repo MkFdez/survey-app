@@ -54,7 +54,7 @@ export default function Survey(){
                     youCant()
                 }
             })}else{
-                //youCant()
+                youCant()
             } })
         
         axios.get(`${API}/api/survey`, 
