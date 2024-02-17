@@ -255,7 +255,7 @@ export default function SurveyInfo() {
           <StatNumber>{participantsCount}</StatNumber>
           <StatHelpText>Click the questions to view details</StatHelpText>
         </Stat>
-        <canvas  id='qrcode' height={'30%'} width={"30%"} style={"display:none"}></canvas>
+        <canvas  id='qrcode' height={'30%'} width={"30%"} style={{display:"none"}}></canvas>
           <Button onClick={downloadQR()} >GET QR</Button>
       </Grid>
       <DatesGraphic datesData={dates} />
