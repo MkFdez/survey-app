@@ -46,9 +46,11 @@ export default function SurveyInfo() {
     })
   }, [survey]);
   const downloadQR = () => {
+    let canvas = document.getElementById('qrcode')
+    if(!canvas) return
     var link = document.createElement('a');
   link.download = id + '.png';
-  link.href = document.getElementById('qrcode').toDataURL()
+  link.href = canvas.toDataURL()
   link.click();
   link.remove()
   }
