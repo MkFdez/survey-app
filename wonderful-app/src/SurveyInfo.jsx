@@ -45,6 +45,13 @@ export default function SurveyInfo() {
       console.log('success!');
     })
   }, [survey]);
+  const downloadQR = () => {
+    var link = document.createElement('a');
+  link.download = id + '.png';
+  link.href = document.getElementById('qrcode').toDataURL()
+  link.click();
+  link.remove()
+  }
   const forceResize = () => {
     
    
@@ -246,8 +253,8 @@ export default function SurveyInfo() {
           <StatNumber>{participantsCount}</StatNumber>
           <StatHelpText>Click the questions to view details</StatHelpText>
         </Stat>
-        <canvas  id='qrcode' height={'30%'} width={"30%"}></canvas>
-          
+        <canvas  id='qrcode' height={'30%'} width={"30%"} style={"display:none"}></canvas>
+          <Button onClick={downloadQR()} >GET QR</Button>
       </Grid>
       <DatesGraphic datesData={dates} />
     {
