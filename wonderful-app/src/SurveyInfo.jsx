@@ -199,7 +199,7 @@ export default function SurveyInfo() {
         </center>
         {question.length > 0 ? (
            
-            <ResponsiveContainer width="100%" height={survey.moreData.questions[i].pa[0].t != 1 ? 330 * (25* question.length) : 330 * (75* question.length) }>
+            <ResponsiveContainer width="100%" height={survey.moreData.questions[i].pa[0].t != 1 ? 330 + (25* question.length) : 330 + (75* question.length) }>
             <PieChart height={300} width={400} >
               <Pie
                 data={pieData}
