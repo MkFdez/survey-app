@@ -199,7 +199,7 @@ export default function SurveyInfo() {
         </center>
         {question.length > 0 ? (
            
-            <ResponsiveContainer width="100%" height={500}>
+            <ResponsiveContainer width="100%" height={survey.moreData.questions[i].pa[0].t != 1 ? 330 * (25* question.length) : 330 * (75* question.length) }>
             <PieChart height={300} width={400} >
               <Pie
                 data={pieData}
@@ -219,7 +219,7 @@ export default function SurveyInfo() {
                 (value, entry, index) =>  
                   survey.moreData.questions[i].pa[0].t != 1 
                 ? <span className="text-color-class">{survey.moreData.questions[i].pa[0].t == 0?  survey.moreData.questions[i].pa[index].a : value}</span> 
-                : <RoundedImage imageUrl={`${API}/`+survey.moreData.questions[i].pa[index].a} width={'20%'} height={"20%"}/>
+                : <RoundedImage imageUrl={`${API}/`+survey.moreData.questions[i].pa[index].a} width={'70px'} height={"70px"}/>
                 }/>
               
             </PieChart>
