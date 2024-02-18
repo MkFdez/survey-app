@@ -109,8 +109,8 @@ export default function CreateSurvey(){
         <Button  colorScheme='red'  w={'100%'} onClick={onOpenDialog} >
                 Finish
         </Button>
-        <Button  colorScheme='red'  w={'100%'} onClick={onOpenGen} >
-                generate by IA
+        <Button  colorScheme='red'  w={'100%'} onClick={onOpenGen} isDisabled={true} >
+                generate by IA (soon)
         </Button>
         <GenerateSurveyDialog isOpen={isOpenGen} onClose={onCloseGen} onOpen={onOpenGen} cancelRef={cancelRef} onAccept={gSurvey} />
         </Stack>

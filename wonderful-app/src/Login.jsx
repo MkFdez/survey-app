@@ -102,9 +102,9 @@ import API_URL from '../config/backend';
             <AlertDescription>Please check your username and password</AlertDescription>
           </Alert>
           }
-              <FormControl id="email">
-                <FormLabel>Email address</FormLabel>
-                <Input type="email" value={username} onChange={e => setUsername(e.target.value)}/>
+              <FormControl id="email">{/*username*/}
+                <FormLabel>Username</FormLabel>
+                <Input type="" value={username} onChange={e => setUsername(e.target.value)}/>
               </FormControl>
               <FormControl id="password">
                 <FormLabel>Password</FormLabel>
@@ -116,7 +116,7 @@ import API_URL from '../config/backend';
                   align={'start'}
                   justify={'space-between'}>
                   <Checkbox value={rememberMe} onChange={e => setRememberMe(e.target.checked)}>Remember me</Checkbox>
-                  <Link color={'blue.400'}>Forgot password?</Link>
+                  {/*<Link color={'blue.400'}>Forgot password?</Link>*/} 
                   <Link href='/user/register'color={'blue.400'} >Register</Link>
                 </Stack>
                 <Button

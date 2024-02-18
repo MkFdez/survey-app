@@ -60,7 +60,6 @@ import API_URL from '../config/backend';
       try{
       const userResponse = await axios.post(`${API}/api/users`, {
         username: username,
-        email: email,
         password: password,
         picture: path,
       }, {withCredentials: true})
@@ -149,7 +148,7 @@ import API_URL from '../config/backend';
             
              {usernameError.error && <FormErrorMessage>{usernameError.message}</FormErrorMessage>}
           </FormControl>
-          <FormControl isInvalid={emailError.error} id="email" isRequired>
+          {/*<FormControl isInvalid={emailError.error} id="email" isRequired>
             <FormLabel>Email address</FormLabel>
             <Input
               placeholder="your-email@example.com"
@@ -168,6 +167,7 @@ import API_URL from '../config/backend';
             />
             {emailError.error && <FormErrorMessage>{emailError.message}</FormErrorMessage>}
           </FormControl>
+                */}
           <FormControl isInvalid={passwordError.error} id="password" isRequired>
             <FormLabel>Password</FormLabel>
             <Input

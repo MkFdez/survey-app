@@ -100,10 +100,10 @@ import {
           spacing={4}
           justify={'center'}
           align={'center'}>
-          <Logo />
+          
           <Stack direction={'row'} spacing={6}>
-            <Link href={'#'}>Home</Link>
-            <Link href={'#'}>New Survey</Link>
+            <Link href={''}>Home</Link>
+            <Link href={'survey/create'}>New Survey</Link>
           </Stack>
         </Container>
   
