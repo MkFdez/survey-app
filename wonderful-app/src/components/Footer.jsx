@@ -8,7 +8,7 @@ import {
     useColorModeValue,
     VisuallyHidden,
   } from '@chakra-ui/react';
-  import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa';
+  import { FaGithub, FaInstagram, FaLinkedin, FaTwitter, FaYoutube } from 'react-icons/fa';
   import { ReactNode, useImperativeHandle } from 'react';
   import React, { useRef, useEffect, useState } from 'react';
   const Logo = (props) => {
@@ -103,9 +103,7 @@ import {
           <Logo />
           <Stack direction={'row'} spacing={6}>
             <Link href={'#'}>Home</Link>
-            <Link href={'#'}>About</Link>
-            <Link href={'#'}>Blog</Link>
-            <Link href={'#'}>Contact</Link>
+            <Link href={'#'}>New Survey</Link>
           </Stack>
         </Container>
   
@@ -121,16 +119,13 @@ import {
             spacing={4}
             justify={{ base: 'center', md: 'space-between' }}
             align={{ base: 'center', md: 'center' }}>
-            <Text>© 2023 Chakra Templates. All rights reserved</Text>
+            <Text>by Mirko Fernandez Soto</Text>
             <Stack direction={'row'} spacing={6}>
-              <SocialButton label={'Twitter'} href={'#'}>
-                <FaTwitter />
+              <SocialButton label={'LinkedIn'} href={'https://www.linkedin.com/in/mirko-fernandez-soto-a027722a8/'}>
+                <FaLinkedin />
               </SocialButton>
-              <SocialButton label={'YouTube'} href={'#'}>
-                <FaYoutube />
-              </SocialButton>
-              <SocialButton label={'Instagram'} href={'#'}>
-                <FaInstagram />
+              <SocialButton label={'Github'} href={'https://github.com/MkFdez/survey-app'}>
+                <FaGithub />
               </SocialButton>
             </Stack>
           </Container>
