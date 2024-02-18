@@ -198,7 +198,7 @@ export default function SurveyInfo() {
         </Heading>
         </center>
         {question.length > 0 ? (
-           <Box ref={chartRef} height={'300px'} width={'100%'}>
+           
             <ResponsiveContainer width="100%" height={500}>
             <PieChart height={300} width={400} >
               <Pie
@@ -225,7 +225,7 @@ export default function SurveyInfo() {
             </PieChart>
             </ResponsiveContainer>
    
-          </Box>
+       
         ) : (
           <Text>No answers yet for this question.</Text>
         )}
