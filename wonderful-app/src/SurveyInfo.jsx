@@ -221,8 +221,8 @@ export default function SurveyInfo() {
                   console.log(`value -> ${value} entry -> ${entry} index => ${index}`)
                   return (
                   survey.moreData.questions[i].pa[0].t != 1 
-                ? <span className="text-color-class">{survey.moreData.questions[i].pa[0].t == 0?  survey.moreData.questions[i].pa[index].a : value}</span> 
-                : <RoundedImage imageUrl={`${API}/`+survey.moreData.questions[i].pa[index].a} width={'70px'} height={"70px"}/>
+                ? <span className="text-color-class">{survey.moreData.questions[i].pa[0].t == 0?  survey.moreData.questions[i].pa[parseInt(value)].a : value}</span> 
+                : <RoundedImage imageUrl={`${API}/`+survey.moreData.questions[i].pa[parseInt(value)].a} width={'70px'} height={"70px"}/>
         )}
               }/>
               
