@@ -36,10 +36,10 @@ import API_URL from '../config/backend';
     async function onFormSubmit(e){
       
       e.preventDefault();
-      if(passwordError.error || emailError.error || passwordError.error){
+      if(passwordError.error || passwordError.error){
         return
       }
-      if(!username.trim() || !password.trim() || !email.trim()){
+      if(!username.trim() || !password.trim() ){
         return
       }
       setIsLoading(true)
