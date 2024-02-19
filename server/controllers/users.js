@@ -11,7 +11,7 @@ usersRouter.post('/', async (request, response) => {
   console.log(username)
   let value = await DataAccess.checkUser(username, email)
   if(value != 0){
-    let message = value == 3 ? "username and email" : value == 2 ? 'username' : 'email'
+    let message = 'username' 
     return response.status(400).json({ error: `${message} already exists` })
   }
   const saltRounds = 10

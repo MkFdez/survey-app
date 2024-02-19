@@ -73,15 +73,11 @@ class DataAccess{
 static async checkUser(username, email){
   //find if there is any user with the same username or email
   const user = await User.findOne({username: username})
-  const mail = await User.findOne({email: email})
-  if(user && mail){
-    return 3
-  }if(user){
+  
+  if(user){
     return 2
   }
-  if(mail){
-    return 1
-  }
+  
   return 0
 }
 static async getUserSurveys(id){
