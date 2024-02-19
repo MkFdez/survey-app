@@ -14,7 +14,7 @@ import {
   } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import ReactPlayer from 'react-player';
-import testVideo from '../assets/testVideo.mp4'
+import testVideo from '../assets/howitworks.mp4'
 import { useState, useRef, useEffect } from 'react';
 import CustomControls from './CustomControls';
 import { set } from 'lodash';
